@@ -50,6 +50,7 @@ class Orders(models.Model):
     price = models.FloatField()
     order_Date = models.TimeField(auto_now=True)
     ordered = models.FloatField()
+    ended = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.id} -- {self.user_Id} -- {self.products_Id} -- {self.price} -- {self.order_Date} -- {self.ordered}"
