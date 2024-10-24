@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'GrillAndChill.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'GrillAndChill',
+        'NAME': 'grillandchill',
         'USER': 'root',
         'PASSWORD': 'Admin123',
         'HOST': 'localhost',
