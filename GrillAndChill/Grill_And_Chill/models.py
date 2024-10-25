@@ -9,6 +9,12 @@ class User(models.Model):
     password = models.CharField(max_length=100)
     gmail = models.EmailField(max_length=100)
     tlf = models.IntegerField()
+    direction = models.CharField(max_length=100)
+    apartment = models.CharField(max_length=100)
+    Postal_code = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+
 
     def __str__(self):
         return f"{self.name} -- {self.surname} -- {self.password} -- {self.gmail} -- {self.tlf}"
@@ -51,6 +57,11 @@ class Orders(models.Model):
     order_Date = models.TimeField(auto_now=True)
     ordered = models.FloatField()
     ended = models.BooleanField(default=False)
+    direction = models.CharField(max_length=100)
+    apartment = models.CharField(max_length=100)
+    Postal_code = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
 
     def __str__(self):
         return f"{self.id} -- {self.user_Id} -- {self.products_Id} -- {self.price} -- {self.order_Date} -- {self.ordered}"
