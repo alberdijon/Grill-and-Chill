@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order List</title>
+</head>
+<body>
+    <h1>Order List</h1>
+    <ul>
+        {% for order in orders %}
+            <li><a href="{% url 'order_detail' order.id %}">Order {{ order.id }} by {{ order.user_Id.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

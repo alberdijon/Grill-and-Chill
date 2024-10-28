@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Detail</title>
+</head>
+<body>
+    <h1>Order Detail</h1>
+    <p>Order ID: {{ order.id }}</p>
+    <p>User: {{ order.user_Id.name }} {{ order.user_Id.surname }}</p>
+    <p>Product: {{ order.products_Id.name }}</p>
+    <p>Price: ${{ order.price }}</p>
+    <p>Order Date: {{ order.order_Date }}</p>
+    <p>Ordered Amount: {{ order.ordered }}</p>
+    <p>Status: {% if order.ended %}Completed{% else %}Pending{% endif %}</p>
+</body>
+</html>
