@@ -2,35 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
+    <div class="container mt-5">
+        <h1 class="text-center">Admin Dashboard</h1>
 
-<div class="container mt-5">
-    <h1 class="text-center">Admin Dashboard</h1>
-    <div class="row mt-4">
-        <div class="col-md-4 mb-3">
-            <a href="{% url 'user_list' %}" class="btn btn-primary btn-block">Manage Users</a>
+        <div class="row mt-4">
+            <div class="col-md-4 mb-3">
+                <a href="{% url 'user_list' %}" class="btn btn-primary btn-block">Manage Users</a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{% url 'product_list' %}" class="btn btn-success btn-block">Manage Products</a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{% url 'order_list' %}" class="btn btn-info btn-block">Manage Orders</a>
+            </div>
         </div>
-        <div class="col-md-4 mb-3">
-            <a href="{% url 'product_list' %}" class="btn btn-success btn-block">Manage Products</a>
-        </div>
-        <div class="col-md-4 mb-3">
-            <a href="{% url 'order_list' %}" class="btn btn-info btn-block">Manage Orders</a>  <!-- Link to Manage Orders -->
-        </div>
+
+        
+        <div>{% block content %} {% endblock %}</div>
+          
     </div>
 
-    <div class="row mt-4">
-        <div class="col-md-12 text-center">
-            <p>Welcome to the Admin Dashboard. Please select an option above to manage application resources.</p>
-        </div>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
