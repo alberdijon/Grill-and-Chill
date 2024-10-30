@@ -2,19 +2,27 @@ from django.shortcuts import render, get_object_or_404 , redirect
 from .models import User, Product, Order
 from django.utils import timezone
 from datetime import timedelta
+from collections import defaultdict
 from .forms import UserForm , ProductForm , OrderForm
+
 
 def index(request):
     one_month_ago = timezone.now() - timedelta(days=30)
-    orders = Order.objects.filter(order_Date__gte=one_month_ago)
+    orders = Order.objects.filter(order_Date__gte=one_month_ago).order_by('order_Date')
 
-    total_revenue = sum(order.price for order in orders)
-    order_count = orders.count()
    
-    chart_data = [['Order Date', 'Revenue']] 
+    revenue_by_date = defaultdict(float)
 
     for order in orders:
-        chart_data.append([order.order_Date.strftime('%Y-%m-%d'), order.price])
+        revenue_by_date[order.order_Date] += order.price  
+
+    
+    chart_data = [['Order Date', 'Revenue']]
+    for date, total_price in revenue_by_date.items():
+        chart_data.append([date.strftime('%Y-%m-%d'), total_price])
+
+    total_revenue = sum(revenue_by_date.values())
+    order_count = len(orders)
 
     return render(request, 'admintemplates/monthly_revenue.html', {
         'total_revenue': total_revenue,
