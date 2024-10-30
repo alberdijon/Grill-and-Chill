@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Product Detail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Product Detail</h1>
-    <p>Name: {{ product.name }}</p>
-    <p>Description: {{ product.description }}</p>
-    <p>Ingredients: {{ product.ingredients }}</p>
-    <p>Price: ${{ product.price }}</p>
-    <img src="{{ product.foto }}" alt="Product Image">
+    <div class="container mt-5">
+        <h1 class="text-center">Product Detail</h1>
+        <div class="mt-4">
+            <p><strong>Name:</strong> {{ product.name }}</p>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Ingredients:</strong> {{ product.ingredients }}</p>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <img src="{{ product.foto }}" alt="Product Image" class="img-fluid">
+        </div>
+        
+        <div class="mt-4">
+            <a href="{% url 'product_update' product_id=product.id %}" class="btn btn-warning">Edit Product</a>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to Product List</a>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

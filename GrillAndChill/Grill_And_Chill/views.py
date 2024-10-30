@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404 , redirect
-from .models import User, Product, Orders
-from .forms import UserForm
-# Basic View for Users
+from .models import User, Product, Order
+from .forms import UserForm , ProductForm
+
 def index(request):
-    return render(request, 'admintemplates/index.html')
+    return render(request, 'admintemplates/index.html')  # ensure the template path is correct
 
 def user_list(request):
     users = User.objects.all()
@@ -24,11 +24,11 @@ def product_detail(request, product_id):
 
 # Basic View for Orders
 def order_list(request):
-    orders = Orders.objects.all()
+    orders = Order.objects.all()
     return render(request, 'admintemplates/order_list.html', {'orders': orders})
 
 def order_detail(request, order_id):
-    order = get_object_or_404(Orders, pk=order_id)
+    order = get_object_or_404(Order, pk=order_id)
     return render(request, 'admintemplates/order_detail.html', {'order': order})
 
 
@@ -48,3 +48,34 @@ def user_delete(request, user_id):
         user.delete()
         return redirect('user_list')
     return render(request, 'admintemplates/user_confirm_delete.html', {'user': user})
+
+def product_update(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')  # Redirect to the product list after successful update
+    else:
+        form = ProductForm(instance=product)
+    
+    return render(request, 'admintemplates/product_form.html', {'form': form, 'product': product})
+
+def product_delete(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('product_list')  # Redirect back to the product list after deletion
+    return render(request, 'admintemplates/product_confirm_delete.html', {'product': product})
+
+def product_create(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save product to the database
+            return redirect('product_list')  # Redirect to the product list
+    else:
+        form = ProductForm()  # Create an empty form for GET request
+    
+    return render(request, 'admintemplates/product_form.html', {'form': form})  # Render the form

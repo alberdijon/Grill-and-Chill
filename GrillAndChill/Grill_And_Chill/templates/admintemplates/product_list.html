@@ -3,13 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Product List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Product List</h1>
-    <ul>
-        {% for product in products %}
-            <li><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="container mt-5">
+        <h1 class="text-center">Product List</h1>
+        <div class="mb-3">
+            <a href="{% url 'product_create' %}" class="btn btn-primary">Add New Product</a>
+        </div>
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+                    <span>
+                        <a href="{% url 'product_update' product.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'product_delete' product.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Optional JavaScript; includes jQuery, Popper.js, and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
