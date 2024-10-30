@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if order %}Update Order{% else %}Create Order{% endif %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">{% if order %}Update Order{% else %}Create Order{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="user_Id">User</label>
+                {{ form.user_Id }}  <!-- Renders the User field -->
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                {{ form.price }}  <!-- Renders the Price field -->
+            </div>
+            <div class="form-group">
+                <label for="ordered">Ordered Amount</label>
+                {{ form.ordered }}  <!-- Renders Ordered Amount field -->
+            </div>
+            <div class="form-group">
+                <label for="direction">Direction</label>
+                {{ form.direction }}  <!-- Renders Direction field -->
+            </div>
+            <div class="form-group">
+                <label for="apartment">Apartment</label>
+                {{ form.apartment }}  <!-- Renders Apartment field -->
+            </div>
+            <div class="form-group">
+                <label for="Postal_code">Postal Code</label>
+                {{ form.Postal_code }}  <!-- Renders Postal Code field -->
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                {{ form.city }}  <!-- Renders City field -->
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                {{ form.state }}  <!-- Renders State field -->
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">{% if order %}Update Order{% else %}Create Order{% endif %}</button>
+        </form>
+        <a href="{% url 'order_list' %}" class="btn btn-secondary btn-block mt-3">Back to Order List</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
