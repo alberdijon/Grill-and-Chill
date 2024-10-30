@@ -79,3 +79,25 @@ def product_create(request):
         form = ProductForm()  # Create an empty form for GET request
     
     return render(request, 'admintemplates/product_form.html', {'form': form})  # Render the form
+
+def user_update(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)  # Bind form to the user instance
+        if form.is_valid():
+            form.save()  # Save the updated user
+            return redirect('user_list')  # Redirect to the user list after successful update
+    else:
+        form = UserForm(instance=user)  # Populate the form with the user's current details
+    
+    return render(request, 'admintemplates/user_form.html', {'form': form, 'user': user})
+
+def user_delete(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    
+    if request.method == 'POST':
+        user.delete()  # Delete the user
+        return redirect('user_list')  # Redirect to the user list after deletion
+    
+    return render(request, 'admintemplates/user_confirm_delete.html', {'user': user})
