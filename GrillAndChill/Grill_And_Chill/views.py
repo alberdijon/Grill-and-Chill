@@ -1,25 +1,44 @@
 from django.shortcuts import render, get_object_or_404 , redirect
-from .models import User, Product, Order
+from .models import User, Product, Order , Product_Order
 from django.utils import timezone
+from django.db.models import Count
 from datetime import timedelta
 from collections import defaultdict
 from .forms import UserForm , ProductForm , OrderForm
-
+def monthly_revenue(request):
+    # Your logic for the view goes here.
+    return render(request, 'admintemplates/monthly_revenue.html', context={})
 
 def index(request):
     one_month_ago = timezone.now() - timedelta(days=30)
     orders = Order.objects.filter(order_Date__gte=one_month_ago).order_by('order_Date')
 
-   
+    # Agrupar ingresos por fecha
     revenue_by_date = defaultdict(float)
-
     for order in orders:
         revenue_by_date[order.order_Date] += order.price  
 
-    
     chart_data = [['Order Date', 'Revenue']]
     for date, total_price in revenue_by_date.items():
         chart_data.append([date.strftime('%Y-%m-%d'), total_price])
+
+    # Obtener los 5 productos más vendidos
+    top_products = Product_Order.objects.values('products_Id__name')\
+                     .annotate(total=Count('products_Id'))\
+                     .order_by('-total')[:5]
+
+    product_chart_data = [['Product', 'Units Sold']]
+    for product in top_products:
+        product_chart_data.append([product['products_Id__name'], product['total']])
+
+    # Obtener los 5 clientes con más pedidos
+    top_customers = Order.objects.values('user_Id__name')\
+                     .annotate(total=Count('user_Id'))\
+                     .order_by('-total')[:5]
+
+    customer_chart_data = [['Customer', 'Orders']]
+    for customer in top_customers:
+        customer_chart_data.append([customer['user_Id__name'], customer['total']])
 
     total_revenue = sum(revenue_by_date.values())
     order_count = len(orders)
@@ -27,9 +46,10 @@ def index(request):
     return render(request, 'admintemplates/monthly_revenue.html', {
         'total_revenue': total_revenue,
         'order_count': order_count,
-        'chart_data': chart_data
+        'chart_data': chart_data,
+        'product_chart_data': product_chart_data,
+        'customer_chart_data': customer_chart_data
     })
- 
 # Basic Views for Users
 
 #List view

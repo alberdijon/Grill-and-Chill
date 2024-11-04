@@ -23,4 +23,5 @@ urlpatterns = [
     path('orders/<int:order_id>/delete/', views.order_delete, name='order_delete'),
     
     
+    path('orders/revenue/', views.monthly_revenue, name='monthly_revenue'),
 ]
