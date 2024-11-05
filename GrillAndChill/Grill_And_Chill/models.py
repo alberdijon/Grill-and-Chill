@@ -10,13 +10,10 @@ class User(models.Model):
     gmail = models.EmailField(max_length=100)
     tlf = models.IntegerField()
     direction = models.CharField(max_length=100)
-    apartment = models.CharField(max_length=100)
-    Postal_code = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
+    
 
     def __str__(self):
-        return f"{self.name} -- {self.surname} -- {self.password} -- {self.gmail} -- {self.tlf}"
+        return f"{self.name} -- {self.surname} -- {self.password} -- {self.gmail} -- {self.tlf} -- {self.direction}"
 
 
 class Category(models.Model):
@@ -64,10 +61,7 @@ class Order(models.Model):
     ordered = models.FloatField()
     ended = models.BooleanField(default=False)
     direction = models.CharField(max_length=100)
-    apartment = models.CharField(max_length=100)
-    Postal_code = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
+    
 
     def __str__(self):
         return f"{self.id} -- {self.user_Id} -- {self.price} -- {self.order_Date} -- {self.ordered}"
