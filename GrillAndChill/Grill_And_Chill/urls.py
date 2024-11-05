@@ -27,12 +27,19 @@ urlpatterns = [
 
 
     path('v1/users/', views.UserAPIView.as_view()),
+    path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
     path('v1/categories/', views.CategoryAPIView.as_view()),
-    path('v1/alergens/', views.AlergenAPIView.as_view()),
+    path('v1/categories/<int:pk>/', views.CategoryAPIViewDetail.as_view()),
+    path('v1/alergens/', views.AlergenAPIView.as_view()), 
+    path('v1/alergens/<int:pk>/', views.AlergenAPIViewDetail.as_view()),
     path('v1/products/', views.ProductAPIView.as_view()),
+    path('v1/products/<int:pk>/', views.ProductAPIViewDetail.as_view()),
     path('v1/product_alergens/', views.ProductAlergenAPIView.as_view()),
+    path('v1/product_alergens/<int:pk>/', views.ProductAlergenAPIViewDetail.as_view()),
     path('v1/orders/', views.OrderAPIView.as_view()),
+    path('v1/orders/<int:pk>/', views.OrderAPIViewDetail.as_view()),
     path('v1/product_orders/', views.ProductOrderAPIView.as_view()),
+    path('v1/product_orders/<int:pk>/', views.ProductOrderAPIViewDetail.as_view()),
 
 
 ]
