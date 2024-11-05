@@ -1,10 +1,15 @@
 from django.shortcuts import render, get_object_or_404 , redirect
-from .models import User, Product, Order , Product_Order
+from .models import Alergen, Category, Product_Alergen, User, Product, Order , Product_Order
 from django.utils import timezone
 from django.db.models import Count
 from datetime import timedelta
 from collections import defaultdict
 from .forms import UserForm , ProductForm , OrderForm
+from .serializers import UserSerializer, CategorySerializer, AlergenSerializer, ProductSerializer, ProductAlergenSerializer, OrderSerializer, ProductOrderSerializer
+from django.http import Http404
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
 def monthly_revenue(request):
     # Your logic for the view goes here.
     return render(request, 'admintemplates/monthly_revenue.html', context={})
@@ -196,3 +201,93 @@ def order_delete(request, order_id):
     return render(request, 'admintemplates/order_confirm_delete.html', {'order': order})
 
 
+class UserAPIView(APIView):
+    def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CategoryAPIView(APIView):
+    def get(self, request, format=None):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AlergenAPIView(APIView):
+    def get(self, request, format=None):
+        alergens = Alergen.objects.all()
+        serializer = AlergenSerializer(alergens, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = AlergenSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProductAPIView(APIView):
+    def get(self, request, format=None):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProductAlergenAPIView(APIView):
+    def get(self, request, format=None):
+        product_alergens = Product_Alergen.objects.all()
+        serializer = ProductAlergenSerializer(product_alergens, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ProductAlergenSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class OrderAPIView(APIView):
+    def get(self, request, format=None):
+        orders = Order.objects.all()
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProductOrderAPIView(APIView):
+    def get(self, request, format=None):
+        product_orders = Product_Order.objects.all()
+        serializer = ProductOrderSerializer(product_orders, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ProductOrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

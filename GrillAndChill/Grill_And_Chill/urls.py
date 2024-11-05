@@ -24,4 +24,15 @@ urlpatterns = [
     
     
     path('orders/revenue/', views.monthly_revenue, name='monthly_revenue'),
+
+
+    path('v1/users/', views.UserAPIView.as_view()),
+    path('v1/categories/', views.CategoryAPIView.as_view()),
+    path('v1/alergens/', views.AlergenAPIView.as_view()),
+    path('v1/products/', views.ProductAPIView.as_view()),
+    path('v1/product_alergens/', views.ProductAlergenAPIView.as_view()),
+    path('v1/orders/', views.OrderAPIView.as_view()),
+    path('v1/product_orders/', views.ProductOrderAPIView.as_view()),
+
+
 ]
