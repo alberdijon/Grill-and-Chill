@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'usertemplates/base.html' %}
 {% block content %}
 <div class="form-container">
     <h2>ERREGISTRATU</h2>
-    <form action="{% url 'register' %}" method="post">
+    <form action="{% url 'clientside_register' %}" method="post">
       <!-- Fondo de la página{% csrf_token %} -->
       <div class="form-row">
         <div class="form-input">
@@ -38,7 +38,7 @@
           />
         </div>
         <div class="form-input">
-          <label for="password">Pasahitza:</label>
+          <label for="password">Pasahitza errpikatu:</label>
           <input
             type="password"
             id="password"

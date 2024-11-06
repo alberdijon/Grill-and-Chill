@@ -196,3 +196,11 @@ def order_delete(request, order_id):
     return render(request, 'admintemplates/order_confirm_delete.html', {'order': order})
 
 
+#Client side
+
+def clientside_main(request):
+    return render(request, 'usertemplates/base.html')
+
+
+def clientside_register(request):
+    return render(request, 'usertemplates/register.html')

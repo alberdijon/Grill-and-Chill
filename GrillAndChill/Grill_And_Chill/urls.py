@@ -24,4 +24,8 @@ urlpatterns = [
     
     
     path('orders/revenue/', views.monthly_revenue, name='monthly_revenue'),
+
+
+    path('clientside/', views.clientside_main, name='clientside_main'),
+    path('clientside/register/', views.clientside_register, name='clientside_register'),
 ]
