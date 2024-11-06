@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Detail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">User Detail</h1>
+        <div class="mt-4 border p-4 rounded">
+            <h5><strong>Name:</strong> {{ user.name }}</h5>
+            <h5><strong>Surname:</strong> {{ user.surname }}</h5>
+            <h5><strong>Email:</strong> {{ user.gmail }}</h5>
+            <h5><strong>Phone:</strong> {{ user.tlf }}</h5>
+            <h5><strong>Direction:</strong> {{ user.direction }}</h5>
+            <h5><strong>Apartment:</strong> {{ user.apartment }}</h5>
+            <h5><strong>Postal Code:</strong> {{ user.Postal_code }}</h5>
+            <h5><strong>City:</strong> {{ user.city }}</h5>
+            <h5><strong>State:</strong> {{ user.state }}</h5>
+        </div>
+        
+        <div class="mt-4">
+            <a href="{% url 'user_update' user.id %}" class="btn btn-warning">Edit User</a>
+            <a href="{% url 'user_delete' user.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete User</a>
+            <a href="{% url 'user_list' %}" class="btn btn-secondary">Back to User List</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn

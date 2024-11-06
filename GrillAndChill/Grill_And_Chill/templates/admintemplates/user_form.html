@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if user_data %}Update User{% else %}Create User{% endif %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">{% if user_data %}Update User{% else %}Create User{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name</label>
+                {{ form.name }}  
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                {{ form.surname }}  
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password }}  
+            </div>
+            <div class="form-group">
+                <label for="gmail">Email</label>
+                {{ form.gmail }}  
+            </div>
+            <div class="form-group">
+                <label for="tlf">Phone</label>
+                {{ form.tlf }}  
+            </div>
+            <div class="form-group">
+                <label for="direction">Direction</label>
+                {{ form.direction }}  
+            </div>
+            <div class="form-group">
+                <label for="apartment">Apartment</label>
+                {{ form.apartment }}  
+            </div>
+            <div class="form-group">
+                <label for="Postal_code">Postal Code</label>
+                {{ form.Postal_code }}  
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                {{ form.city }} 
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                {{ form.state }}  
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">{% if user %}Update User{% else %}Create User{% endif %}</button>
+        </form>
+        <a href="{% url 'user_list' %}" class="btn btn-secondary btn-block mt-3">Back to User List</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

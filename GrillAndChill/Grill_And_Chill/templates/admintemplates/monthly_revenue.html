@@ -1,0 +1,98 @@
+{% extends 'admintemplates/index.html' %}
+{% block content %}
+<style>
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        background-color: #007bff; 
+        border-radius: 50%; 
+    }
+
+    #chart_div_1, #chart_div_2, #chart_div_3 {
+        width: 100%;  /* Set 100% width */
+        height: 55vh; /* Set height, adjustable based on viewport */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<div class="mt-5">
+    <h2 class="text-center">Monthly Revenue</h2>
+    <h4 class="text-center">Total Revenue: {{ total_revenue }}€</h4>
+    <h4 class="text-center">Total Orders: {{ order_count }}</h4>
+
+    <div id="chartCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Gráfico 1 -->
+            <div class="carousel-item active">
+                <div id="chart_div_1"></div>
+            </div>
+            <!-- Gráfico 2 -->
+            <div class="carousel-item">
+                <div id="chart_div_2"></div>
+            </div>
+            <!-- Gráfico 3 -->
+            <div class="carousel-item">
+                <div id="chart_div_3"></div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#chartCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#chartCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawCharts);
+    
+        function drawCharts() {
+            var chartCarousel = document.getElementById('chartCarousel');
+            var carouselWidth = chartCarousel.clientWidth;
+            var carouselHeight = chartCarousel.clientHeight;
+            // Gráfico 1: Monthly revenue
+            
+            var data1 = google.visualization.arrayToDataTable({{ chart_data|safe }});
+            var options1 = { 
+                title: 'Monthly Revenue', 
+                hAxis: { title: 'Date' }, 
+                vAxis: { title: 'Revenue (€)' },
+                legend: 'none',
+                height: carouselHeight, // Adjust height to 100% of container
+                width: carouselWidth   // Set to 100% for responsive width
+            };
+            var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div_1'));
+            chart1.draw(data1, options1);
+        
+            // Gráfico 2: Top 5 productos más vendidos
+            var data2 = google.visualization.arrayToDataTable({{ product_chart_data|safe }});
+            var options2 = { 
+                title: 'Top 5 Best-Selling Products', 
+                hAxis: { title: 'Product' }, 
+                vAxis: { title: 'Units Sold' },
+                legend: 'none',
+                height: carouselHeight, // Adjust height to 100% of container
+                width: carouselWidth   // Set to 100% for responsive width
+            };
+            var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
+            chart2.draw(data2, options2);
+        
+            // Gráfico 3: Top 5 clientes con más pedidos
+            var data3 = google.visualization.arrayToDataTable({{ customer_chart_data|safe }});
+            var options3 = { 
+                title: 'Top 5 Customers by Orders', 
+                hAxis: { title: 'Customer' }, 
+                vAxis: { title: 'Orders' },
+                legend: 'none',
+                height: carouselHeight, // Adjust height to 100% of container
+                width: carouselWidth   // Set to 100% for responsive width
+            };
+            var chart3 = new google.visualization.ColumnChart(document.getElementById('chart_div_3'));
+            chart3.draw(data3, options3);
+        }
+    </script>
+    
+</div>
+{% endblock %}
