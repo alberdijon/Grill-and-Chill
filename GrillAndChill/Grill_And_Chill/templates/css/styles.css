@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Press Start 2P', sans-serif;
+    color: #fff;
+}
+
+.background {
+    background-image: url('/Grill_And_Chill/templates/resources/fondo.png');
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 20px;
+}
+
+.content {
+    width: 80%;
+    margin: 0 auto; 
+    background-color: #242342;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px; 
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #622455;
+}
+
+.navbar .logo {
+    width: 50px;
+}
+
+.navbar .menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.navbar .menu li a {
+    color: #FFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar .icons img {
+    width: 30px;
+    margin-left: 10px;
+}
+
+footer {
+    background-color: #622455;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+footer .social-icons img {
+    width: 20px;
+    margin: 0 10px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-self: center;
+    background-color: #242342;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 0 auto;
+    color: #FFD700;
+    text-align: center;
+    font-family: 'Press Start 2P', sans-serif;
+    align-items: center;
+
+}
+
+form{
+    width: 100%;
+    align-content: center;
+    align-self: center;
+}
+
+.form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    
+}
+
+.form-row{
+    align-content: center;
+    align-self: center;
+    display:flex;
+    flex-direction: row;
+    width: 90%;
+    column-gap: 20%;
+    margin-left: 5%;
+    margin-top: 20px;
+}
+
+.form-input {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-direction: column;
+    flex: 1;
+}
+
+.form-input label {
+    font-weight: bold;
+    color: #FFD700;
+    font-size: 12px;
+    text-align: left;
+}
+
+/* Ocupa toda la columna para el input */
+.form-input input {
+    background-color: #4E4C68;
+    border: none;
+    color: #FFD700;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Press Start 2P', sans-serif;
+    height: 45px;
+    padding: 10px;
+}
+
+.form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.submit-btn {
+    background-color: #822459;
+    border: none;
+    padding: 10px 20px;
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: #A02D67;
+}

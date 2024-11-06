@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grill & Chill</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/Grill_And_Chill/templates/css/styles.css" />
+  </head>
+  <body>
+    <div class="background">
+      <div class="content">
+        <nav class="navbar">
+          <img
+            src="/Grill_And_Chill/templates/resources/logo.png"
+            alt="Logo Grill & Chill"
+            class="logo"
+          />
+          <ul class="menu">
+            <li><a href="#">ORRI NAGUSIA</a></li>
+            <li><a href="#">PRODUKTUAK</a></li>
+            <li><a href="#">KONTAKTUAK</a></li>
+          </ul>
+          <div class="icons">
+            <a href="#">
+              <img
+                src="/Grill_And_Chill/templates/resources/carrito.png"
+                alt="Cart"
+              />
+            </a>
+            <a href="#">
+              <img
+                src="/Grill_And_Chill/templates/resources/user.png"
+                alt="User"
+              />
+            </a>
+          </div>
+        </nav>
+        
+        {% block content %} {% endblock %}
+
+
+        <footer>
+          <p>Plaza UNZAGA n°4, 20600 Eibar, Gipuzkoa</p>
+          <p>GRILL & CHILL</p>
+          <div class="social-icons">
+            <a href="#">
+              <img
+                src="/Grill_And_Chill/templates/resources/facebook.png"
+                alt="Facebook"
+              />
+            </a>
+            <a href="#">
+              <img
+                src="/Grill_And_Chill/templates/resources/insta.png"
+                alt="Instagram"
+              />
+            </a>
+            <a href="#">
+              <img
+                src="/Grill_And_Chill/templates/resources/twitter.png"
+                alt="Twitter"
+              />
+            </a>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
