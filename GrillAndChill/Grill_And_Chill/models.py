@@ -10,10 +10,10 @@ class User(models.Model):
     gmail = models.EmailField(max_length=100)
     tlf = models.IntegerField()
     direction = models.CharField(max_length=100)
-
+    
 
     def __str__(self):
-        return f"{self.name} -- {self.surname} -- {self.password} -- {self.gmail} -- {self.tlf}"
+        return f"{self.name} -- {self.surname} -- {self.password} -- {self.gmail} -- {self.tlf} -- {self.direction}"
 
 
 class Category(models.Model):
