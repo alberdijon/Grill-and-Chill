@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <!-- Otros elementos dentro del header -->
+    
+        <!-- Imagen del carrito que abre el carrito de compras -->
+        <div class="cart-icon" onclick="toggleCart()">
+            <img src="resources/Saskia.png" alt="Carrito de compras">
+        </div>
+    </header>
+    
+    <!-- Contenedor del Carrito -->
+    <div class="cart" id="cart">
+        <h2>Tu pedido</h2>
+        <p class="empty-message">Tu carrito está vacío</p>
+        <div class="cart-items"></div>
+        <div class="cart-total">
+            <span>Importe total:</span>
+            <span id="total-price">0,00€</span>
+        </div>
+        <button class="checkout-button">Ordaindu Orain</button>
+    </div>
+    
+</body>
+</html>

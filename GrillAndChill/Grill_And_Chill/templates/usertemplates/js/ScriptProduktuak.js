@@ -31,7 +31,6 @@ $(document).ready(function () {
         observer.observe(item);
     });
 
-    // Carrusel con soporte para arrastrar
     const carouselRow = document.getElementById('carouselRow');
     let isDragging = false;
     let startPos = 0;
@@ -39,19 +38,16 @@ $(document).ready(function () {
     let prevTranslate = 0;
     let animationID;
 
-    // Ajustes para bucle
-    const itemCount = items.length; // Número total de elementos
-    const itemWidth = items[0].getBoundingClientRect().width; // Ancho de un elemento
-
-    // Duplicar los elementos para crear un efecto de bucle
+   
+    const itemCount = items.length; 
+    const itemWidth = items[0].getBoundingClientRect().width;
     const cloneFirst = items[0].cloneNode(true);
     const cloneLast = items[itemCount - 1].cloneNode(true);
     carouselRow.appendChild(cloneFirst);
     carouselRow.insertBefore(cloneLast, items[0]);
 
-    // Actualiza el número de elementos después de duplicar
     const updatedItems = document.querySelectorAll('.carousel-item .item');
-    const updatedItemCount = updatedItems.length; // Total de elementos después de la duplicación
+    const updatedItemCount = updatedItems.length;
 
     const setSliderPosition = () => {
         carouselRow.style.transform = `translateX(${currentTranslate}px)`;
@@ -73,7 +69,7 @@ $(document).ready(function () {
         if (isDragging) {
             const currentPosition = event.pageX;
             const distanceMoved = currentPosition - startPos;
-            const speedFactor = 1.5; // Factor de velocidad
+            const speedFactor = 1.5;
             currentTranslate = prevTranslate + distanceMoved * speedFactor;
         }
     });
@@ -83,11 +79,10 @@ $(document).ready(function () {
         cancelAnimationFrame(animationID);
         prevTranslate = currentTranslate;
 
-        // Lógica para hacer que el carrusel sea cíclico
         if (currentTranslate < -((updatedItemCount - 1) * itemWidth)) {
-            currentTranslate = -itemWidth; // Mueve a la segunda imagen (primer clon)
+            currentTranslate = -itemWidth; 
         } else if (currentTranslate > 0) {
-            currentTranslate = -((updatedItemCount - 2) * itemWidth); // Mueve al último elemento antes del clon
+            currentTranslate = -((updatedItemCount - 2) * itemWidth); 
         }
 
         setSliderPosition();
@@ -103,7 +98,6 @@ $(document).ready(function () {
         }
     });
 
-    // Para el caso de que el usuario suelte el ratón fuera del área del carrusel
     document.addEventListener('mouseup', () => {
         if (isDragging) {
             isDragging = false;
@@ -112,4 +106,26 @@ $(document).ready(function () {
             carouselRow.style.cursor = 'grab';
         }
     });
+    
 });
+let quantity = 1;
+
+function openModal(title, description, price, imageUrl) {
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalDescription").innerText = description;
+    document.getElementById("modalPrice").innerText = `${price}€`;
+    document.getElementById("modalImg").src = imageUrl;
+    document.getElementById("quantity").innerText = quantity;
+    document.getElementById("productModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("productModal").style.display = "none";
+    quantity = 1; // Reiniciar la cantidad al cerrar
+}
+
+function changeQuantity(amount) {
+    quantity += amount;
+    if (quantity < 1) quantity = 1; // Evita que la cantidad sea menor que 1
+    document.getElementById("quantity").innerText = quantity;
+}

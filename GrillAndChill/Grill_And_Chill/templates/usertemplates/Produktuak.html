@@ -15,18 +15,18 @@
 <body>
   <header>
     <div class="logo">
-      <img src="img/LogoJweby.png" alt="Grill & Chill Logo">
+      <img src="resources/LogoJweby.png" alt="Grill & Chill Logo">
     </div>
     <nav>
       <ul>
-        <li><a class="nav-link" href="#">Orri Nagusia</a></li>
-        <li><a class="nav-link" href="#">Produktuak</a></li>
-        <li><a class="nav-link" href="#">Kontaktuak</a></li>
+        <li><a class="nav-link" href="Index.html">Orri Nagusia</a></li>
+        <li><a class="nav-link" href="Produktuak.html">Produktuak</a></li>
+        <li><a class="nav-link" href="Kontaktuak.html">Kontaktuak</a></li>
       </ul>
     </nav>
     <div class="icons">
-      <a href="#"><img src="img/Saskia.png" alt="Carrito de Compras"></a>
-      <a href="#"><img src="img/Profile.png" alt="Perfil de Usuario"></a>
+      <a href="#"><img src="resources/Saskia.png" alt="Carrito de Compras"></a>
+      <a href="#"><img src="resources/Profile.png" alt="Perfil de Usuario"></a>
     </div>
   </header>
 
@@ -44,10 +44,10 @@
           <div class="carousel-inner">
               <div class="carousel-item active">
                   <div class="d-flex image-row" id="carouselRow">
-                      <div class="item text-center">
-                          <img src="resources/Alas.png" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                          <p>Oilasko barbakoa hegalak</p>
-                      </div>
+                    <div class="item text-center" onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, 'resources/Mozzarella.png')">
+                      <img src="resources/Mozzarella.png" alt="Mozzarella" class="carousel-img">
+                      <p>Mozzarella makilatxoak</p>
+                  </div>
                       <div class="item text-center">
                           <img src="resources/Nacho.png" alt="Pan de patata" class="carousel-img">
                           <p>Grill natxoak</p>
@@ -73,6 +73,26 @@
           </div>
       </div>         
     </div>
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <img id="modalImg" src="" alt="Product Image">
+          <h2 id="modalTitle"></h2>
+          <p id="modalDescription"></p>
+          <div class="allergens">
+            <p>ALERGENOAK:</p>
+            <img src="resources/logo huevos 1.png" alt="Huevo" title="Huevo">
+            <img src="resources/logo leche 1.png" alt="Lactosa" title="Lactosa">
+          </div>
+          <div class="quantity-control">
+              <button onclick="changeQuantity(-1)">-</button>
+              <span id="quantity">1</span>
+              <button onclick="changeQuantity(1)">+</button>
+          </div>
+          <p id="modalPrice"></p>
+          <button class="add-to-cart">SASKIRA GEHITU</button>
+      </div>
+  </div>
     </section>
   </div>
   <footer>
@@ -84,8 +104,8 @@
       <p>GRILL & CHILL</p>
     </div>
     <div class="social">
-      <img src="img/snapchat.jpg" /> <img src="img/facebook.jpg" />
-      <img src="img/twitter.jpg" />
+      <img src="resources/snapchat.jpg" /> <img src="resources/facebook.jpg" />
+      <img src="resources/twitter.jpg" />
     </div>
   </footer>
 
