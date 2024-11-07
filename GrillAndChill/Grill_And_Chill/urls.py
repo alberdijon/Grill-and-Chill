@@ -25,7 +25,9 @@ urlpatterns = [
     
     path('orders/revenue/', views.monthly_revenue, name='monthly_revenue'),
 
-
+    path('clientside/', views.clientside_main, name='clientside_main'),
+    path('clientside/register/', views.clientside_register, name='clientside_register'),
+  
     path('v1/users/', views.UserAPIView.as_view()),
     path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
     path('v1/categories/', views.CategoryAPIView.as_view()),
