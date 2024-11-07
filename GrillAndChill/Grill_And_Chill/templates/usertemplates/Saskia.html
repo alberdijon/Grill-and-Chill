@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
 </head>
 <body>
     <header>
@@ -11,7 +12,7 @@
     
         <!-- Imagen del carrito que abre el carrito de compras -->
         <div class="cart-icon" onclick="toggleCart()">
-            <img src="resources/Saskia.png" alt="Carrito de compras">
+            <img src="{% static '/resources/Saskia.png' %}" alt="Carrito de compras">
         </div>
     </header>
     
