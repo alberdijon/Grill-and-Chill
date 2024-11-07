@@ -206,11 +206,20 @@ def order_delete(request, order_id):
 def clientside_main(request):
     return render(request, 'usertemplates/base.html')
 
-
 def clientside_register(request):
     return render(request, 'usertemplates/register.html')
   
-  
+def clientside_index(request):
+    return render(request, 'usertemplates/index.html')
+
+def clientside_produktuak(request):
+    return render(request, 'usertemplates/produktuak.html')
+
+def clientside_saskia(request):
+    return render(request, 'usertemplates/saskia.html')
+
+def clientside_kontaktuak(request):
+    return render(request, 'usertemplates/kontaktuak.html')
 
 class UserAPIView(APIView):
     

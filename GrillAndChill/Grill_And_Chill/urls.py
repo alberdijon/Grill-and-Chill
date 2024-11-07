@@ -27,6 +27,10 @@ urlpatterns = [
 
     path('clientside/', views.clientside_main, name='clientside_main'),
     path('clientside/register/', views.clientside_register, name='clientside_register'),
+    path('clientside/index/', views.clientside_index, name='clientside_index'),
+    path('clientside/produktuak/', views.clientside_produktuak, name='clientside_produktuak'),
+    path('clientside/saskia/', views.clientside_saskia, name='clientside_saskia'),
+    path('clientside/kontaktuak/', views.clientside_kontaktuak, name='clientside_kontaktuak'),
   
     path('v1/users/', views.UserAPIView.as_view()),
     path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
