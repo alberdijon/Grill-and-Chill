@@ -201,6 +201,16 @@ def order_delete(request, order_id):
     return render(request, 'admintemplates/order_confirm_delete.html', {'order': order})
 
 
+#Client side
+
+def clientside_main(request):
+    return render(request, 'usertemplates/base.html')
+
+
+def clientside_register(request):
+    return render(request, 'usertemplates/register.html')
+  
+  
 
 class UserAPIView(APIView):
     
@@ -494,3 +504,4 @@ class ProductOrderAPIViewDetail(APIView):
         product_order = self.get_object(pk)
         product_order.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
