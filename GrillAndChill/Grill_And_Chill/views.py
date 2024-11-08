@@ -11,6 +11,7 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+
 def monthly_revenue(request):
     # Your logic for the view goes here.
     return render(request, 'admintemplates/monthly_revenue.html', context={})
@@ -239,7 +240,27 @@ def clientside_main(request):
 
 
 def clientside_register(request):
-    return render(request, 'usertemplates/register.html')
+    if request.method == 'POST':
+        erabiltzailea = User.objects.filter(gmail=request.POST.get('gmail'))
+        form = UserForm(request.POST)
+
+        if not erabiltzailea.exists():
+            print("Dena ondo")
+            
+            print(form.data)
+
+            if form.is_valid():
+                form.save()
+                return redirect('clientside_main')
+        
+        else:
+            messages.error(request, "Ya existe un usuario con este correo.")
+
+        
+    else:
+        form = UserForm()
+
+    return render(request, 'usertemplates/register.html', {'form': form})
   
   
 
