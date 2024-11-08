@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Grill_And_Chill',
-    
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

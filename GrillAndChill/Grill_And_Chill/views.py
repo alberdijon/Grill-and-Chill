@@ -1,12 +1,16 @@
+from django.contrib  import messages
 from django.shortcuts import render, get_object_or_404 , redirect
-from .models import User, Product, Order , Product_Order
+from .models import Alergen, Category, Product_Alergen, User, Product, Order , Product_Order
 from django.utils import timezone
 from django.db.models import Count
 from datetime import timedelta
 from collections import defaultdict
 from .forms import UserForm , ProductForm , OrderForm
-from django.contrib import messages
-
+from .serializers import UserSerializer, CategorySerializer, AlergenSerializer, ProductSerializer, ProductAlergenSerializer, OrderSerializer, ProductOrderSerializer
+from django.http import Http404
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
 
 def monthly_revenue(request):
     # Your logic for the view goes here.
@@ -69,22 +73,39 @@ def user_detail(request, user_id):
 def user_create(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
+        
         if form.is_valid():
-            form.save()
-            return redirect('user_list')  
+            # Obtener el correo electrónico que se está intentando crear
+            email = form.cleaned_data.get('gmail')
+            # Verificar si ya existe un usuario con ese correo
+            if User.objects.filter(gmail=email).exists():
+                messages.error(request, "Ya existe un usuario con este correo electrónico.")
+            else:
+                form.save()
+                messages.success(request, "Usuario creado con éxito.")
+                return redirect('user_list')  
     else:
         form = UserForm()
+    
     return render(request, 'admintemplates/user_form.html', {'form': form})
 
-# Update View
+# Update User
 def user_update(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     
     if request.method == 'POST':
         form = UserForm(request.POST, instance=user) 
+        
         if form.is_valid():
-            form.save()  
-            return redirect('user_list') 
+            # Obtener el correo electrónico que se está intentando actualizar
+            new_email = form.cleaned_data.get('gmail')
+            # Verificar si ya existe otro usuario con ese correo, excluyendo el usuario actual
+            if User.objects.filter(gmail=new_email).exclude(pk=user_id).exists():
+                messages.error(request, "Ya existe un usuario con este correo electrónico.")
+            else:
+                form.save()  
+                messages.success(request, "Usuario actualizado con éxito.")
+                return redirect('user_list') 
     else:
         form = UserForm(instance=user)  
     
@@ -116,15 +137,22 @@ def product_detail(request, product_id):
 # Upadate product
 def product_update(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    
+
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=product)
+
         if form.is_valid():
-            form.save()
-            return redirect('product_list') 
+            new_name = form.cleaned_data.get('name')
+        if Product.objects.filter(name=new_name).exclude(pk=product_id).exists():
+                messages.error(request, "Ya existe un producto con este nombre.")
+        else:
+                form.save()
+                messages.success(request, "Producto actualizado con éxito.")
+                return redirect('product_list')
+
     else:
         form = ProductForm(instance=product)
-    
+
     return render(request, 'admintemplates/product_form.html', {'form': form, 'product': product})
 # Delete product
 def product_delete(request, product_id):
@@ -138,13 +166,19 @@ def product_delete(request, product_id):
 def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
+
+        # Primero valida el formulario
         if form.is_valid():
-            form.save()  
-            return redirect('product_list') 
+            # Verificar si hay un producto con el mismo nombre solo después de validar el formulario
+            if Product.objects.filter(name=form.cleaned_data.get('name')).exists():
+                messages.error(request, "Ya existe un producto con este nombre.")
+            else:
+                form.save()  
+                return redirect('product_list')
     else:
         form = ProductForm()  
     
-    return render(request, 'admintemplates/product_form.html', {'form': form})  
+    return render(request, 'admintemplates/product_form.html', {'form': form})
 # Basic Views for Orders
 
 # List View
@@ -227,3 +261,299 @@ def clientside_register(request):
         form = UserForm()
 
     return render(request, 'usertemplates/register.html', {'form': form})
+  
+  
+
+class UserAPIView(APIView):
+    
+    def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        user = self.get_object(pk)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CategoryAPIView(APIView):
+    
+    def get(self, request, format=None):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CategoryAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        category = self.get_object(pk)
+        serializer = CategorySerializer(category)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        category = self.get_object(pk)
+        serializer = CategorySerializer(category, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        category = self.get_object(pk)
+        category.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class AlergenAPIView(APIView):
+    
+    def get(self, request, format=None):
+        alergens = Alergen.objects.all()
+        serializer = AlergenSerializer(alergens, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = AlergenSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AlergenAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return Alergen.objects.get(pk=pk)
+        except Alergen.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        alergen = self.get_object(pk)
+        serializer = AlergenSerializer(alergen)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        alergen = self.get_object(pk)
+        serializer = AlergenSerializer(alergen, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        alergen = self.get_object(pk)
+        alergen.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ProductAPIView(APIView):
+    
+    def get(self, request, format=None):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        product = self.get_object(pk)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        product = self.get_object(pk)
+        serializer = ProductSerializer(product, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        product = self.get_object(pk)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ProductAlergenAPIView(APIView):
+    
+    def get(self, request, format=None):
+        product_alergens = Product_Alergen.objects.all()
+        serializer = ProductAlergenSerializer(product_alergens, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ProductAlergenSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductAlergenAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return Product_Alergen.objects.get(pk=pk)
+        except Product_Alergen.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        product_alergen = self.get_object(pk)
+        serializer = ProductAlergenSerializer(product_alergen)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        product_alergen = self.get_object(pk)
+        serializer = ProductAlergenSerializer(product_alergen, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        product_alergen = self.get_object(pk)
+        product_alergen.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class OrderAPIView(APIView):
+    
+    def get(self, request, format=None):
+        orders = Order.objects.all()
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return Order.objects.get(pk=pk)
+        except Order.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        order = self.get_object(pk)
+        serializer = OrderSerializer(order)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        order = self.get_object(pk)
+        serializer = OrderSerializer(order, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        order = self.get_object(pk)
+        order.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    
+class ProductOrderAPIView(APIView):
+    
+    def get(self, request, format=None):
+        product_orders = Product_Order.objects.all()
+        serializer = ProductOrderSerializer(product_orders, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ProductOrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductOrderAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return Product_Order.objects.get(pk=pk)
+        except Product_Order.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        product_order = self.get_object(pk)
+        serializer = ProductOrderSerializer(product_order)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        product_order = self.get_object(pk)
+        serializer = ProductOrderSerializer(product_order, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        product_order = self.get_object(pk)
+        product_order.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
