@@ -121,11 +121,20 @@ function openModal(title, description, price, imageUrl) {
 
 function closeModal() {
     document.getElementById("productModal").style.display = "none";
-    quantity = 1; // Reiniciar la cantidad al cerrar
+    quantity = 1;
 }
 
 function changeQuantity(amount) {
     quantity += amount;
-    if (quantity < 1) quantity = 1; // Evita que la cantidad sea menor que 1
+    if (quantity < 1) quantity = 1;
     document.getElementById("quantity").innerText = quantity;
 }
+function toggleProducts() {
+    const productContainer = document.getElementById("productContainer");
+    const toggleArrow = document.getElementById("toggleArrow");
+    
+    productContainer.classList.toggle("hidden");
+    productContainer.classList.toggle("visible");
+    
+    toggleArrow.classList.toggle("rotated");
+  }

@@ -1,38 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kontaktuak</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'CSS/Style.css' %}" />
-  </head>
-
-  <body>
-    <header>
-      <div class="logo">
-        <img src="resources/LogoJweby.png" alt="Grill & Chill Logo" />
-      </div>
-      <nav>
-        <ul>
-          <li><a class="nav-link" href="usertemplates/index.html">Orri Nagusia</a></li>
-          <li><a class="nav-link" href="Produktuak.html">Produktuak</a></li>
-          <li><a class="nav-link" href="Kontaktuak.html">Kontaktuak</a></li>
-        </ul>
-      </nav>
-      <div class="icons">
-        <a href="#"
-          ><img
-            src="{% static '/resources/Saskia.png' %}"
-            alt="Carrito de Compras"
-        /></a>
-        <a href="#"
-          ><img
-            src="{% static '/resources/Profile.png' %}"
-            alt="Perfil de Usuario"
-        /></a>
-      </div>
-    </header>
+{% extends 'usertemplates/base.html' %}
+{% block content %}{% load static %}
     <div class="gorputza">
       <section class="main">
         <div class="banner">
@@ -81,28 +48,7 @@
         referrerpolicy="no-referrer-when-downgrade"
       ></iframe>
     </div>
-    <footer>
-      <address>
-        <p>Plaza UNZAGA n°4</p>
-        <p>20600 Eibar, Gipuzkoa</p>
-      </address>
-      <div class="social-icons">
-        <a href="#">
-          <img
-            src="{% static '/resources/facebook.png' %}"
-            alt="Facebook"
-            
-          />
-        </a>
-        <a href="#">
-          <img src="{% static '/resources/insta.png' %}" alt="Instagram" />
-        </a>
-        <a href="#">
-          <img src="{% static '/resources/twitter.png' %}" alt="Twitter" />
-        </a>
-      </div>
-    </footer>
+    
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/ScriptIndex.js"></script>
-  </body>
-</html>
+    {% endblock %}

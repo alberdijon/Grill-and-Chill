@@ -163,6 +163,8 @@ nav a {
   margin-bottom: 20px;
 }
 
+
+
 .products p {
   font-size: 1em;
   color: #242342;
@@ -214,14 +216,98 @@ footer address {
   margin-top: 20px;
   padding-bottom: 20px;
 }
+.hanburgesak {
+  color: #242342;
+  font-size: 3em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.postreak {
+  color: #242342;
+  font-size: 3em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.edariak {
+  color: #242342;
+  font-size: 3em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
 
 .hasierakoak h2 {
-  margin-bottom: 20px;
-  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
   color: #fcea5e;
-  margin: auto;
-  text-align: center;
-  padding-bottom: 20px;
+  padding: 10px;
+}
+.hanburgesak h2 {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fcea5e;
+  padding: 10px;
+}
+.postreak h2 {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fcea5e;
+  padding: 10px;
+}
+.edariak h2 {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fcea5e;
+  padding: 10px;
+}
+.arrow {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.product-container {
+  display: flex;
+  gap: 15px;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+}
+
+.hidden {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.visible {
+  max-height: 500px;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .carousel-inner {
@@ -233,13 +319,27 @@ footer address {
   transition: transform 0.5s ease; 
 }
 
-.item {
-  flex: 0 0 auto;
-  background-color: #fcea5e;
-  margin-left: 20px;
-  margin-right: 20px;
+.image-row {
+  display: flex;
+  gap: 20px;                   
 }
 
+.item {
+  text-align: center;        
+  background-color: #fcea5e;   
+}
+
+.item img {
+  width: 300px;                 
+  height: auto;                 
+  margin-bottom: 5px; 
+}
+
+.item p {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+}
 
 .carousel-img {
   width: 100%;
@@ -247,17 +347,7 @@ footer address {
   padding: 20px;
 }
 
-.item img {
-  width: 100%;
-  height: auto; 
-}
 
-.item p {
-  margin-top: 5px; 
-  font-size: 14px;
-  color: #242342;
-  margin: 0;
-}
 
 
 .cart-icon img {
@@ -337,30 +427,33 @@ footer address {
 
 .modal {
   display: none;
+  align-items: center;
+  justify-content: center;
   z-index: 1000;
-  padding-top: 60px;
+  width: 100%;
+  height: 100%;
+  position: fixed;
   left: 0;
   top: 0;
-  height: 10%;
   background-color: rgba(0, 0, 0, 0.7);
-  margin: auto;
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: auto;
+  background-color: #e7b86b;
   padding: 20px;
   border: 1px solid #888;
   text-align: center;
-  background-color: #e7b86b;
   border-radius: 10px;
   font-family: "Press Start 2P", serif;
-  max-width: 50%;
+  width: 300px;
+  max-width: 90%;
+  margin: auto;
+  margin-top: 100px;
 }
+
 .modal-content img {
   height: auto;
-  margin: auto;     
-  background-color: #e7b86b;
+  margin: auto;
 }
 
 .close {
@@ -399,16 +492,90 @@ footer address {
   border: none;
   font-family: "Press Start 2P", serif;
 }
-.allergens {
-  justify-content: center;
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  align-self: center;
+  background-color: #242342;
+  padding: 20px;
+  border-radius: 10px;
+  width: 75%;
+  margin: 0 auto;
+  color: #ffd700;
+  text-align: center;
+  font-family: "Press Start 2P", sans-serif;
+  align-items: center;
 }
 
-.allergens img {
-  width: 30px; /* Ajusta el tamaño del ícono según necesites */
-  height: auto;
-  transition: transform 0.2s ease;
+form {
+  width: 100%;
+  align-content: center;
+  align-self: center;
 }
 
-.allergens img:hover {
-  transform: scale(1.2); /* Efecto de zoom al pasar el ratón */
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  align-content: center;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  column-gap: 20%;
+  margin-left: 5%;
+  margin-top: 20px;
+}
+
+.form-input {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-input label {
+  font-weight: bold;
+  color: #ffd700;
+  font-size: 12px;
+  text-align: left;
+}
+
+.form-input input {
+  background-color: #4e4c68;
+  border: none;
+  color: #ffd700;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 14px;
+  font-family: "Press Start 2P", sans-serif;
+  height: 45px;
+  padding: 10px;
+}
+
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  background-color: #822459;
+  border: none;
+  padding: 10px 20px;
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.submit-btn:hover {
+  background-color: #a02d67;
 }
