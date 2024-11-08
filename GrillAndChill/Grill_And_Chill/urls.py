@@ -27,10 +27,14 @@ urlpatterns = [
 
     path('clientside/', views.clientside_main, name='clientside_main'),
     path('clientside/register/', views.clientside_register, name='clientside_register'),
+    path('clientside/log-in/', views.clientside_login, name='clientside_login'),
+  
     path('clientside/index/', views.clientside_index, name='clientside_index'),
     path('clientside/produktuak/', views.clientside_produktuak, name='clientside_produktuak'),
     path('clientside/saskia/', views.clientside_saskia, name='clientside_saskia'),
     path('clientside/kontaktuak/', views.clientside_kontaktuak, name='clientside_kontaktuak'),
+
+  
   
     path('v1/users/', views.UserAPIView.as_view()),
     path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
@@ -38,14 +42,26 @@ urlpatterns = [
     path('v1/categories/<int:pk>/', views.CategoryAPIViewDetail.as_view()),
     path('v1/alergens/', views.AlergenAPIView.as_view()), 
     path('v1/alergens/<int:pk>/', views.AlergenAPIViewDetail.as_view()),
+  
+
+  
+    
+
     path('v1/products/', views.ProductAPIView.as_view()),
     path('v1/products/<int:pk>/', views.ProductAPIViewDetail.as_view()),
-    path('v1/product_alergens/', views.ProductAlergenAPIView.as_view()),
-    path('v1/product_alergens/<int:pk>/', views.ProductAlergenAPIViewDetail.as_view()),
-    path('v1/orders/', views.OrderAPIView.as_view()),
-    path('v1/orders/<int:pk>/', views.OrderAPIViewDetail.as_view()),
-    path('v1/product_orders/', views.ProductOrderAPIView.as_view()),
-    path('v1/product_orders/<int:pk>/', views.ProductOrderAPIViewDetail.as_view()),
+    # path('v1/users/', views.UserAPIView.as_view()),
+    # path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
+    # path('v1/categories/', views.CategoryAPIView.as_view()),
+    # path('v1/categories/<int:pk>/', views.CategoryAPIViewDetail.as_view()),
+    # path('v1/alergens/', views.AlergenAPIView.as_view()), 
+    # path('v1/alergens/<int:pk>/', views.AlergenAPIViewDetail.as_view()),
+    # path('v1/product_alergens/', views.ProductAlergenAPIView.as_view()),
+    # path('v1/product_alergens/<int:pk>/', views.ProductAlergenAPIViewDetail.as_view()),
+    # path('v1/orders/', views.OrderAPIView.as_view()),
+    # path('v1/orders/<int:pk>/', views.OrderAPIViewDetail.as_view()),
+    # path('v1/product_orders/', views.ProductOrderAPIView.as_view()),
+    # path('v1/product_orders/<int:pk>/', views.ProductOrderAPIViewDetail.as_view()),
 
 
 ]
+   

@@ -1,0 +1,38 @@
+{% extends 'usertemplates/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="form-container">
+  <h2>Log In</h2>
+  <form action="{% url 'clientside_login' %}" method="post">
+    {% csrf_token %}
+    
+    {% if messages %}
+      <div class="alert alert-danger">
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div class="form-row">
+      <div class="form-input">
+        <label for="gmail">Email:</label>
+        <input type="email" id="gmail" name="gmail" value="{{ form.gmail.value }}" placeholder="Adibidea" required />
+      </div>
+      <div class="form-input">
+        <label for="password">Pasahitza:</label>
+        <input type="password" id="password" name="password" value="{{ form.password.value }}" placeholder="Adibidea" required />
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Saioa hasi</button>
+  </form>
+</div>
+
+{% block extra_js %}
+<script src="{% static 'js/validations.js' %}"></script>
+{% endblock %}
+{% endblock %}

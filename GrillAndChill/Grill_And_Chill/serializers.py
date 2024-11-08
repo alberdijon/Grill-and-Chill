@@ -22,6 +22,9 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+        
+    
+        
 
 class ProductAlergenSerializer(serializers.ModelSerializer):
     products_Id = ProductSerializer()  

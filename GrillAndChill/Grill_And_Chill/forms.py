@@ -15,3 +15,7 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['user_Id', 'price', 'ordered', 'direction']
+
+class LoginForm(forms.Form):
+    gmail = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'placeholder': 'Adibidea'}))
+    password = forms.CharField(label='Pasahitza', widget=forms.PasswordInput(attrs={'placeholder': 'Adibidea'}))
