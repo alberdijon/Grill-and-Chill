@@ -5,6 +5,9 @@ from django.db.models import Count
 from datetime import timedelta
 from collections import defaultdict
 from .forms import UserForm , ProductForm , OrderForm
+from django.contrib import messages
+
+
 def monthly_revenue(request):
     # Your logic for the view goes here.
     return render(request, 'admintemplates/monthly_revenue.html', context={})
@@ -203,4 +206,24 @@ def clientside_main(request):
 
 
 def clientside_register(request):
-    return render(request, 'usertemplates/register.html')
+    if request.method == 'POST':
+        erabiltzailea = User.objects.filter(gmail=request.POST.get('gmail'))
+        form = UserForm(request.POST)
+
+        if not erabiltzailea.exists():
+            print("Dena ondo")
+            
+            print(form.data)
+
+            if form.is_valid():
+                form.save()
+                return redirect('clientside_main')
+        
+        else:
+            messages.error(request, "Ya existe un usuario con este correo.")
+
+        
+    else:
+        form = UserForm()
+
+    return render(request, 'usertemplates/register.html', {'form': form})
