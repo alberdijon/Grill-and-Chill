@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.db.models import Count
 from datetime import timedelta
 from collections import defaultdict
-from .forms import UserForm , ProductForm , OrderForm
+from .forms import UserForm , ProductForm , OrderForm, LoginForm
 from .serializers import UserSerializer, CategorySerializer, AlergenSerializer, ProductSerializer, ProductAlergenSerializer, OrderSerializer, ProductOrderSerializer
 from django.http import Http404
 from rest_framework.response import Response
@@ -264,7 +264,29 @@ def clientside_register(request):
   
   
 
+def clientside_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            gmail = form.cleaned_data['gmail']
+            password = form.cleaned_data['password']
+            
+            usuario = User.objects.filter(gmail=gmail).first()
 
+            if usuario:
+                if password == usuario.password:
+                    return redirect('clientside_main')
+                else:
+                    messages.error(request, "La contraseña es incorrecta.")
+            else:
+                messages.error(request, "No existe un usuario con este correo.")
+        else:
+            messages.error(request, "Por favor, corrija los errores del formulario.")
+    else:
+        form = LoginForm()
+
+    return render(request, 'usertemplates/login.html', {'form': form})
+  
 
 
 class ProductAPIView(APIView):
