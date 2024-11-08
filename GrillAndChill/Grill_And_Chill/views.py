@@ -234,10 +234,18 @@ def order_delete(request, order_id):
 
 
 #Client side
+  
+def clientside_index(request):
+    return render(request, 'usertemplates/index.html')
 
-def clientside_main(request):
-    return render(request, 'usertemplates/base.html')
+def clientside_produktuak(request):
+    return render(request, 'usertemplates/produktuak.html')
 
+def clientside_saskia(request):
+    return render(request, 'usertemplates/saskia.html')
+
+def clientside_kontaktuak(request):
+    return render(request, 'usertemplates/kontaktuak.html')
 
 def clientside_register(request):
     if request.method == 'POST':
@@ -577,5 +585,4 @@ class ProductOrderAPIViewDetail(APIView):
         product_order = self.get_object(pk)
         product_order.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
  """

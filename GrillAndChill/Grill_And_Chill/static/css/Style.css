@@ -1,0 +1,581 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Press Start 2P", serif;
+}
+
+body {
+  background-image: url("../resources/fondo 1.png");
+  background-repeat: repeat;
+}
+
+.gorputza {
+  width: 75%;
+  margin: auto;
+  background-color: #242342;
+}
+
+.gorputza h1{
+  margin: auto;
+  color: #FCEA5E;
+  text-align: center;
+  margin-top: 20px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #622455;
+  padding: 20px;
+  width: 75%;
+  height: 100px;  
+  margin: auto;
+}
+
+header .logo img {
+  width: 100px;
+  height: auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 200px;
+  color: #fcea5e;
+  font-weight: bold;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fcea5e;
+  font-weight: bold;
+}
+
+.icons img {
+  width: 50px;
+  margin-left: 15px;
+}
+
+.main .banner {
+  text-align: center;
+  padding: 50px;
+  background-color: #242342;
+  color: #fff;
+  padding-top: 100px;
+}
+
+.banner h1 {
+  color: #FCEA5E;
+  font-size: 5em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.karratua {
+  background-color: #FCEA5E;
+  width: 40%;
+  margin-left: 30px;
+  max-width: 500px;
+  margin-right: 20px;
+  color: #242342;
+}
+
+.karratua2 {
+  background-color: #00D0FF;
+  width: 40%;
+  max-width: 500px;
+  margin-right: 20px;
+  color: #242342;
+  margin-left: auto;
+}
+
+.karratua3 {
+  background-color: #FF00DD;
+  width: 40%;
+  max-width: 500px;
+  margin-left: 30px;
+  color: #242342;
+}
+
+.textua {
+  color: #242342;
+  font-size: 1em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+.about {
+  background-color: #FCEA5E; 
+  width: 600px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-left: 20px;
+  margin-top: 50px;
+}
+
+.about .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about p {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.about img {
+  width: 100%;
+  border: 3px dashed magenta;
+  display: block;
+}
+
+.products {
+  background-color: #00D0FF; 
+  width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: -400px;
+  height: 500px;
+}
+
+.products .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+
+
+.products p {
+  font-size: 1em;
+  color: #242342;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+  padding: 20px;
+  background-color: #622455;
+  color: #fcea5e;
+  margin: auto;
+}
+
+footer address {
+  text-align: center;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+}
+
+.Grill{
+  text-align: center;
+}
+
+.social img {
+  width: 30px;
+  height: auto;
+}
+
+.scroll-text {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.5s ease;
+}
+
+.scroll-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hasierakoak {
+  color: #242342;
+  font-size: 3em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+.hanburgesak {
+  color: #242342;
+  font-size: 3em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.postreak {
+  color: #242342;
+  font-size: 3em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.edariak {
+  color: #242342;
+  font-size: 3em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.hasierakoak h2 {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fcea5e;
+  padding: 10px;
+}
+.hanburgesak h2 {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fcea5e;
+  padding: 10px;
+}
+.postreak h2 {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fcea5e;
+  padding: 10px;
+}
+.edariak h2 {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fcea5e;
+  padding: 10px;
+}
+.arrow {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.product-container {
+  display: flex;
+  gap: 15px;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+}
+
+.hidden {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.visible {
+  max-height: 500px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.carousel-inner {
+  overflow: hidden;
+}
+
+.carousel-item {
+  display: flex;
+  transition: transform 0.5s ease; 
+}
+
+.image-row {
+  display: flex;
+  gap: 20px;                   
+}
+
+.item {
+  text-align: center;        
+  background-color: #fcea5e;   
+}
+
+.item img {
+  width: 300px;                 
+  height: auto;                 
+  margin-bottom: 5px; 
+}
+
+.item p {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+}
+
+.carousel-img {
+  width: 100%;
+  height: auto; 
+  padding: 20px;
+}
+
+
+
+
+.cart-icon img {
+  width: 50px;
+  cursor: pointer;
+}
+
+.cart {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #242342;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  padding: 20px;
+  color: #fcea5e;
+  font-family: "Press Start 2P", serif;
+}
+
+.cart.open {
+  transform: translateX(0);
+}
+
+.cart h2 {
+  font-size: 1.2em;
+  color: #fcea5e;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.empty-message {
+  color: #fcea5e;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.cart-items {
+  margin-bottom: 20px;
+  color: #fcea5e;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+.cart-item button {
+  background-color: transparent;
+  border: none;
+  color: #fcea5e;
+  cursor: pointer;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1em;
+  margin-top: 10px;
+}
+
+.checkout-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #622455;
+  color: #fcea5e;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.modal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #e7b86b;
+  padding: 20px;
+  border: 1px solid #888;
+  text-align: center;
+  border-radius: 10px;
+  font-family: "Press Start 2P", serif;
+  width: 300px;
+  max-width: 90%;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.modal-content img {
+  height: auto;
+  margin: auto;
+}
+
+.close {
+  top: 10px;
+  right: 20px;
+  color: #aaa;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quantity-control button {
+  font-size: 18px;
+  padding: 5px 10px;
+}
+
+.add-to-cart {
+  background-color: #622455;
+  color: #fcea5e;
+  padding: 10px 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  border: none;
+  font-family: "Press Start 2P", serif;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  align-self: center;
+  background-color: #242342;
+  padding: 20px;
+  border-radius: 10px;
+  width: 75%;
+  margin: 0 auto;
+  color: #ffd700;
+  text-align: center;
+  font-family: "Press Start 2P", sans-serif;
+  align-items: center;
+}
+
+form {
+  width: 100%;
+  align-content: center;
+  align-self: center;
+}
+
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  align-content: center;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  column-gap: 20%;
+  margin-left: 5%;
+  margin-top: 20px;
+}
+
+.form-input {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-input label {
+  font-weight: bold;
+  color: #ffd700;
+  font-size: 12px;
+  text-align: left;
+}
+
+.form-input input {
+  background-color: #4e4c68;
+  border: none;
+  color: #ffd700;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 14px;
+  font-family: "Press Start 2P", sans-serif;
+  height: 45px;
+  padding: 10px;
+}
+
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  background-color: #822459;
+  border: none;
+  padding: 10px 20px;
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.submit-btn:hover {
+  background-color: #a02d67;
+}
