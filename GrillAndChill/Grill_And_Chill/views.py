@@ -1,3 +1,4 @@
+from django.contrib  import messages
 from django.shortcuts import render, get_object_or_404 , redirect
 from .models import Alergen, Category, Product_Alergen, User, Product, Order , Product_Order
 from django.utils import timezone
@@ -71,22 +72,39 @@ def user_detail(request, user_id):
 def user_create(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
+        
         if form.is_valid():
-            form.save()
-            return redirect('user_list')  
+            # Obtener el correo electrónico que se está intentando crear
+            email = form.cleaned_data.get('gmail')
+            # Verificar si ya existe un usuario con ese correo
+            if User.objects.filter(gmail=email).exists():
+                messages.error(request, "Ya existe un usuario con este correo electrónico.")
+            else:
+                form.save()
+                messages.success(request, "Usuario creado con éxito.")
+                return redirect('user_list')  
     else:
         form = UserForm()
+    
     return render(request, 'admintemplates/user_form.html', {'form': form})
 
-# Update View
+# Update User
 def user_update(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     
     if request.method == 'POST':
         form = UserForm(request.POST, instance=user) 
+        
         if form.is_valid():
-            form.save()  
-            return redirect('user_list') 
+            # Obtener el correo electrónico que se está intentando actualizar
+            new_email = form.cleaned_data.get('gmail')
+            # Verificar si ya existe otro usuario con ese correo, excluyendo el usuario actual
+            if User.objects.filter(gmail=new_email).exclude(pk=user_id).exists():
+                messages.error(request, "Ya existe un usuario con este correo electrónico.")
+            else:
+                form.save()  
+                messages.success(request, "Usuario actualizado con éxito.")
+                return redirect('user_list') 
     else:
         form = UserForm(instance=user)  
     
@@ -118,15 +136,22 @@ def product_detail(request, product_id):
 # Upadate product
 def product_update(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    
+
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=product)
+
         if form.is_valid():
-            form.save()
-            return redirect('product_list') 
+            new_name = form.cleaned_data.get('name')
+        if Product.objects.filter(name=new_name).exclude(pk=product_id).exists():
+                messages.error(request, "Ya existe un producto con este nombre.")
+        else:
+                form.save()
+                messages.success(request, "Producto actualizado con éxito.")
+                return redirect('product_list')
+
     else:
         form = ProductForm(instance=product)
-    
+
     return render(request, 'admintemplates/product_form.html', {'form': form, 'product': product})
 # Delete product
 def product_delete(request, product_id):
@@ -140,13 +165,19 @@ def product_delete(request, product_id):
 def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
+
+        # Primero valida el formulario
         if form.is_valid():
-            form.save()  
-            return redirect('product_list') 
+            # Verificar si hay un producto con el mismo nombre solo después de validar el formulario
+            if Product.objects.filter(name=form.cleaned_data.get('name')).exists():
+                messages.error(request, "Ya existe un producto con este nombre.")
+            else:
+                form.save()  
+                return redirect('product_list')
     else:
         form = ProductForm()  
     
-    return render(request, 'admintemplates/product_form.html', {'form': form})  
+    return render(request, 'admintemplates/product_form.html', {'form': form})
 # Basic Views for Orders
 
 # List View
