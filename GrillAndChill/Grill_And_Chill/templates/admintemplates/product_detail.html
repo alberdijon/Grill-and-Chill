@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Product Detail</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
 </head>
 <body>
     <div class="container mt-5">
@@ -13,7 +14,7 @@
             <p><strong>Description:</strong> {{ product.description }}</p>
             <p><strong>Ingredients:</strong> {{ product.ingredients }}</p>
             <p><strong>Price:</strong> ${{ product.price }}</p>
-            <img src="{{ product.foto }}" alt="Product Image" class="img-fluid">
+            <img src="{% static 'resources/' %}{{ product.foto }}" alt="Product Image" class="img-fluid">
         </div>
         
         <div class="mt-4">
