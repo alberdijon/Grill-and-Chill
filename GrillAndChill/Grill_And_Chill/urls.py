@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('clientside/', views.clientside_main, name='clientside_main'),
     path('clientside/register/', views.clientside_register, name='clientside_register'),
+    path('clientside/log-in/', views.clientside_login, name='clientside_login'),
   
     
     path('v1/products/', views.ProductAPIView.as_view()),
