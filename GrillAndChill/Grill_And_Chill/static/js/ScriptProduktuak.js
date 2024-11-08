@@ -129,9 +129,36 @@ function changeQuantity(amount) {
     if (quantity < 1) quantity = 1;
     document.getElementById("quantity").innerText = quantity;
 }
-function toggleProducts() {
+function toggleHasierakoak() {
     const productContainer = document.getElementById("productContainer");
     const toggleArrow = document.getElementById("toggleArrow");
+    
+    productContainer.classList.toggle("hidden");
+    productContainer.classList.toggle("visible");
+    
+    toggleArrow.classList.toggle("rotated");
+  }
+  function toggleHanburgesak() {
+    const productContainer = document.getElementById("productContainer2");
+    const toggleArrow = document.getElementById("toggleArrow2");
+    
+    productContainer.classList.toggle("hidden");
+    productContainer.classList.toggle("visible");
+    
+    toggleArrow.classList.toggle("rotated");
+  }
+  function togglePostreak() {
+    const productContainer = document.getElementById("productContainer3");
+    const toggleArrow = document.getElementById("toggleArrow3");
+    
+    productContainer.classList.toggle("hidden");
+    productContainer.classList.toggle("visible");
+    
+    toggleArrow.classList.toggle("rotated");
+  }
+  function toggleEdariak() {
+    const productContainer = document.getElementById("productContainer4");
+    const toggleArrow = document.getElementById("toggleArrow4");
     
     productContainer.classList.toggle("hidden");
     productContainer.classList.toggle("visible");

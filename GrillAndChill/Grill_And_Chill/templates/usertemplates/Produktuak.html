@@ -9,7 +9,7 @@
 
   <section class="main">
     <div class="hasierakoak">
-      <h2 onclick="toggleProducts()">
+      <h2 onclick="toggleHasierakoak()">
         HASIERAKOAK
         <span class="arrow" id="toggleArrow">▼</span>
       </h2>
@@ -66,22 +66,175 @@
       </div>
     </div>
     <div class="hanburgesak">
-      <h2 onclick="toggleProducts()">
+      <h2 onclick="toggleHanburgesak()">
         HANBURGESAK
-        <span class="arrow" id="toggleArrow">▼</span>
+        <span class="arrow" id="toggleArrow2">▼</span>
       </h2>
+      <div id="productContainer2" class="visible">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="d-flex image-row" id="carouselRow">
+                <div class="item text-center"
+                  onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, '{% static 'resources/Mozzarella.png' %}')">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Mozzarella" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Nacho.png' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Saskia.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Smash.jpg' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
+                  <p>Oilasko barbakoa hegalak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Smash.jpg' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
+                  <p>Oilasko barbakoa hegalak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="postreak">
-      <h2 onclick="toggleProducts()">
+      <h2 onclick="togglePostreak()">
         POSTREAK
-        <span class="arrow" id="toggleArrow">▼</span>
+        <span class="arrow" id="toggleArrow3">▼</span>
       </h2>
+      <div id="productContainer3" class="visible">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="d-flex image-row" id="carouselRow">
+                <div class="item text-center"
+                  onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, '{% static 'resources/Mozzarella.png'%}')">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Mozzarella" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Nacho.png' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Saskia.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Smash.jpg' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
+                  <p>Oilasko barbakoa hegalak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Smash.jpg' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
+                  <p>Oilasko barbakoa hegalak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="edariak">
-      <h2 onclick="toggleProducts()">
+      <h2 onclick="toggleEdariak()">
         EDARIAK
-        <span class="arrow" id="toggleArrow">▼</span>
+        <span class="arrow" id="toggleArrow4">▼</span>
       </h2>
+      <div id="productContainer4" class="visible">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="d-flex image-row" id="carouselRow">
+                <div class="item text-center"
+                  onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, '{% static 'resources/Mozzarella.png' %}')">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Mozzarella" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Nacho.png' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Saskia.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Smash.jpg' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
+                  <p>Oilasko barbakoa hegalak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static '/resources/Smash.jpg' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
+                  <p>Oilasko barbakoa hegalak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Pan de patata" class="carousel-img">
+                  <p>Grill natxoak</p>
+                </div>
+                <div class="item text-center">
+                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
+                  <p>Mozzarella makilatxoak</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 </div>
 <div id="productModal" class="modal">
