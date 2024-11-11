@@ -297,7 +297,7 @@ def clientside_login(request):
 
             if usuario:
                 if password == usuario.password:
-                    return redirect('clientside_main')
+                    return redirect('clientside_index')
                 else:
                     messages.error(request, "La contraseña es incorrecta.")
             else:

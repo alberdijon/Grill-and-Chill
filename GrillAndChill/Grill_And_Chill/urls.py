@@ -25,7 +25,7 @@ urlpatterns = [
     
     path('orders/revenue/', views.monthly_revenue, name='monthly_revenue'),
 
-    path('clientside/', views.clientside_main, name='clientside_main'),
+    path('clientside/', views.clientside_index, name='clientside_main'),
     path('clientside/register/', views.clientside_register, name='clientside_register'),
     path('clientside/log-in/', views.clientside_login, name='clientside_login'),
   
@@ -36,12 +36,12 @@ urlpatterns = [
 
   
   
-    path('v1/users/', views.UserAPIView.as_view()),
-    path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
-    path('v1/categories/', views.CategoryAPIView.as_view()),
-    path('v1/categories/<int:pk>/', views.CategoryAPIViewDetail.as_view()),
-    path('v1/alergens/', views.AlergenAPIView.as_view()), 
-    path('v1/alergens/<int:pk>/', views.AlergenAPIViewDetail.as_view()),
+    # path('v1/users/', views.UserAPIView.as_view()),
+    # path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
+    # path('v1/categories/', views.CategoryAPIView.as_view()),
+    # path('v1/categories/<int:pk>/', views.CategoryAPIViewDetail.as_view()),
+    # path('v1/alergens/', views.AlergenAPIView.as_view()), 
+    # path('v1/alergens/<int:pk>/', views.AlergenAPIViewDetail.as_view()),
   
 
   
