@@ -9,81 +9,56 @@
 
   <section class="main">
     <div class="hasierakoak">
-      <h2 onclick="toggleProducts()">
-        HASIERAKOAK
-        <span class="arrow" id="toggleArrow">▼</span>
-      </h2>
+      <h2 onclick="toggleProducts()">HASIERAKOAK <span class="arrow" id="toggleArrow">▼</span></h2>
       <div id="productContainer" class="visible">
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <div class="d-flex image-row" id="carouselRow">
-                <div class="item text-center"
-                  onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, '{% static 'resources/Mozzarella.png' %}')">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Mozzarella" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Nacho.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Saskia.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-              </div>
+              <div class="d-flex image-row" id="carouselRow"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="hanburgesak">
-      <h2 onclick="toggleProducts()">
-        HANBURGESAK
-        <span class="arrow" id="toggleArrow">▼</span>
-      </h2>
+    <div class="hanburguesak">
+      <h2 onclick="toggleProducts()">HANBURGUESAK <span class="arrow" id="toggleArrow">▼</span></h2>
+      <div id="productContainer" class="visible">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="d-flex image-row" id="carouselRow"></div> 
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="postreak">
-      <h2 onclick="toggleProducts()">
-        POSTREAK
-        <span class="arrow" id="toggleArrow">▼</span>
-      </h2>
+      <h2 onclick="toggleProducts()">POSTREAK <span class="arrow" id="toggleArrow">▼</span></h2>
+      <div id="productContainer" class="visible">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="d-flex image-row" id="carouselRow"></div> 
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="edariak">
-      <h2 onclick="toggleProducts()">
-        EDARIAK
-        <span class="arrow" id="toggleArrow">▼</span>
-      </h2>
+      <h2 onclick="toggleProducts()">EDARIAK <span class="arrow" id="toggleArrow">▼</span></h2>
+      <div id="productContainer" class="visible">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="d-flex image-row" id="carouselRow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 </div>
+
 <div id="productModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
@@ -104,6 +79,52 @@
     <button class="add-to-cart">SASKIRA GEHITU</button>
   </div>
 </div>
-</section>
-</div>
+
+<script>
+  // Función para cargar productos desde la API
+  async function loadProducts() {
+  try {
+    const response = await fetch('/v1/products/');
+    const products = await response.json();
+    const carouselRow = document.getElementById('carouselRow');
+
+    products.forEach(product => {
+      const item = document.createElement('div');
+      item.className = 'item text-center';
+      item.onclick = () => openModal(product.name, product.description, product.price, `{% static 'resources/' %}${product.foto}`);
+
+      console.error(product.foto + "patata")
+      const img = document.createElement('img');
+      img.src = `{% static 'resources/' %}${product.foto}`; 
+      img.alt = product.name;
+      img.className = 'carousel-img';
+
+      const description = document.createElement('p');
+      description.innerText = product.description;
+
+      item.appendChild(img);
+      item.appendChild(description);
+      carouselRow.appendChild(item);
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
+}
+
+  // Llama a la función cuando se carga la página
+  document.addEventListener("DOMContentLoaded", loadProducts);
+
+  // Función para abrir el modal con los detalles del producto
+  function openModal(name, description, price, imgUrl) {
+    document.getElementById('modalTitle').innerText = name;
+    document.getElementById('modalDescription').innerText = description;
+    document.getElementById('modalPrice').innerText = `${price} €`;
+    document.getElementById('modalImg').src = imgUrl;
+    document.getElementById('productModal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('productModal').style.display = 'none';
+  }
+</script>
 {% endblock %}

@@ -259,7 +259,7 @@ def clientside_register(request):
 
             if form.is_valid():
                 form.save()
-                return redirect('clientside_main')
+                return redirect('clientside_index')
         
         else:
             messages.error(request, "Ya existe un usuario con este correo.")
@@ -283,7 +283,7 @@ def clientside_login(request):
 
             if usuario:
                 if password == usuario.password:
-                    return redirect('clientside_main')
+                    return redirect('clientside_index')
                 else:
                     messages.error(request, "La contraseña es incorrecta.")
             else:
