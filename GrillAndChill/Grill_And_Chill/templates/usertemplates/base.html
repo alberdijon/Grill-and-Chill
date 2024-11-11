@@ -3,29 +3,45 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grill & Chill</title>
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css\Style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/Style.css' %}" />
 </head>
 
 <body>
   <header>
     <div class="logo">
-      <img src="{% static '/resources/LogoJweby.png' %}" alt="Grill & Chill Logo">
+      <img src="{% static 'resources/LogoJweby.png' %}" alt="Grill & Chill Logo">
     </div>
     <nav>
       <ul>
         <li><a class="nav-link" href="{% url 'clientside_index' %}">Orri Nagusia</a></li>
         <li><a class="nav-link" href="{% url 'clientside_produktuak' %}">Produktuak</a></li>
-        <li><a class="nav-link" href="{% url 'clientside_kontaktuak'%}">Kontaktuak</a></li>
+        <li><a class="nav-link" href="{% url 'clientside_kontaktuak' %}">Kontaktuak</a></li>
       </ul>
     </nav>
     <div class="icons">
-      <a href="#"><img src="{% static '/resources/Saskia.png' %}" alt="Carrito de Compras"></a>
-      <a href="{% url 'clientside_login'%}"><img src="{% static '/resources/Profile.png' %}" alt="Perfil de Usuario"></a>
+      <a onclick="toggleCart()" style="cursor:pointer;">
+        <img src="{% static 'resources/Saskia.png' %}" alt="Saskia">
+      </a>
+      <a href="{% url 'clientside_login' %}"><img src="{% static 'resources/Profile.png' %}" alt="Perfil de Usuario"></a>
     </div>
   </header>
+
+  <div class="cart" id="cart">
+    <div class="cart-header">
+        <h2>Tu pedido</h2>
+        <span class="close-btn" onclick="toggleCart()">×</span>
+    </div>
+    <p class="empty-message">Tu carrito está vacío</p>
+    <div class="cart-items"></div>
+    <div class="cart-total">
+        <span>Importe total:</span>
+        <span id="total-price">0,00€</span>
+    </div>
+    <button class="checkout-button">Ordaindu Orain</button>
+</div>
 
   {% block content %} {% endblock %}
 
@@ -38,14 +54,16 @@
       <p>GRILL & CHILL</p>
     </div>
     <div class="social">
-      <img src="{% static '/resources/twitter.png' %}" /> <img src="{% static '/resources/insta.png' %}" />
-      <img src="{% static '/resources/facebook.png' %}" />
+      <img src="{% static 'resources/twitter.png' %}" /> <img src="{% static 'resources/insta.png' %}" />
+      <img src="{% static 'resources/facebook.png' %}" />
     </div>
   </footer>
+
   <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
   <script src="{% static 'js/ScriptIndex.js' %}"></script>
   <script src="{% static 'js/ScriptSaskia.js' %}"></script>
   <script src="{% static 'js/ScriptProduktuak.js' %}"></script>
+  <script src="{% static 'js/validations.js' %}"></script>
 </body>
 
 </html>
