@@ -1,6 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
-
+from django.views.generic import TemplateView
 urlpatterns = [
     path('', views.index, name='index'),  
     path('users/', views.user_list, name='user_list'),
@@ -24,10 +24,11 @@ urlpatterns = [
     path('orders/<int:order_id>/delete/', views.order_delete, name='order_delete'),    
     path('orders/revenue/', views.monthly_revenue, name='monthly_revenue'),
 
+    path('clientside/', views.clientside_index, name='clientside_main'),
+
     path('clientside/register/', views.clientside_register, name='clientside_register'),
     path('clientside/log-in/', views.clientside_login, name='clientside_login'),
   
-    path('clientside/', views.clientside_index, name='clientside_index'),
     path('clientside/produktuak/', views.clientside_produktuak, name='clientside_produktuak'),
     path('clientside/saskia/', views.clientside_saskia, name='clientside_saskia'),
     path('clientside/kontaktuak/', views.clientside_kontaktuak, name='clientside_kontaktuak'),   
@@ -35,10 +36,10 @@ urlpatterns = [
     path('v1/products/', views.ProductAPIView.as_view()),
     path('v1/products/<int:pk>/', views.ProductAPIViewDetail.as_view()),
 
+
     path('v1/product_alergens/', views.ProductAlergenAPIView.as_view()),
     path('v1/product_alergens/<int:pk>/', views.ProductAlergenAPIViewDetail.as_view()),
     
-
     # path('v1/users/', views.UserAPIView.as_view()),
     # path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
     # path('v1/categories/', views.CategoryAPIView.as_view()),
@@ -52,6 +53,6 @@ urlpatterns = [
     # path('v1/product_orders/', views.ProductOrderAPIView.as_view()),
     # path('v1/product_orders/<int:pk>/', views.ProductOrderAPIViewDetail.as_view()),
 
-
+    
 ]
    

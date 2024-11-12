@@ -1,12 +1,15 @@
 from django.contrib  import messages
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, get_object_or_404 , redirect
-from .models import Alergen, Category, Product_Alergen, User, Product, Order , Product_Order
+import logging
+from .models import User, Product, Order , Product_Order
 from django.utils import timezone
 from django.db.models import Count
 from datetime import timedelta
 from collections import defaultdict
 from .forms import UserForm , ProductForm , OrderForm, LoginForm
 from .serializers import ProductAlergenDescriptionSerializer, UserSerializer, CategorySerializer, AlergenSerializer, ProductSerializer, ProductAlergenSerializer, OrderSerializer, ProductOrderSerializer
+
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -70,20 +73,21 @@ def user_detail(request, user_id):
     return render(request, 'admintemplates/user_detail.html', {'user': user})
 
 # Create View
+# Create User
 def user_create(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         
         if form.is_valid():
-            # Obtener el correo electrónico que se está intentando crear
             email = form.cleaned_data.get('gmail')
-            # Verificar si ya existe un usuario con ese correo
             if User.objects.filter(gmail=email).exists():
-                messages.error(request, "Ya existe un usuario con este correo electrónico.")
+                messages.error(request, "A user with this email already exists.")
             else:
-                form.save()
-                messages.success(request, "Usuario creado con éxito.")
-                return redirect('user_list')  
+                user = form.save(commit=False)  
+                user.password = make_password(form.cleaned_data['password'])  
+                user.save() 
+                messages.success(request, "User created successfully.")
+                return redirect('user_list')
     else:
         form = UserForm()
     
@@ -91,21 +95,19 @@ def user_create(request):
 
 # Update User
 def user_update(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    
+    user = get_object_or_404(User, pk=user_id)    
     if request.method == 'POST':
-        form = UserForm(request.POST, instance=user) 
-        
+        form = UserForm(request.POST, instance=user)   
         if form.is_valid():
-            # Obtener el correo electrónico que se está intentando actualizar
-            new_email = form.cleaned_data.get('gmail')
-            # Verificar si ya existe otro usuario con ese correo, excluyendo el usuario actual
+            new_email = form.cleaned_data.get('gmail')    
             if User.objects.filter(gmail=new_email).exclude(pk=user_id).exists():
-                messages.error(request, "Ya existe un usuario con este correo electrónico.")
+                messages.error(request, "A user with this email already exists.")
             else:
-                form.save()  
-                messages.success(request, "Usuario actualizado con éxito.")
-                return redirect('user_list') 
+                user = form.save(commit=False) 
+                user.password = make_password(form.cleaned_data['password'])  
+                user.save() 
+                messages.success(request, "User updated successfully.")
+                return redirect('user_list')
     else:
         form = UserForm(instance=user)  
     
@@ -247,30 +249,45 @@ def clientside_saskia(request):
 def clientside_kontaktuak(request):
     return render(request, 'usertemplates/kontaktuak.html')
 
+
 def clientside_register(request):
     if request.method == 'POST':
-        erabiltzailea = User.objects.filter(gmail=request.POST.get('gmail'))
+        existing_user = User.objects.filter(gmail=request.POST.get('gmail'))
         form = UserForm(request.POST)
 
-        if not erabiltzailea.exists():
-            print("Dena ondo")
-            
+        if not existing_user.exists():
+            print("All good")
             print(form.data)
 
             if form.is_valid():
-                form.save()
-                return redirect('clientside_index')
-        
-        else:
-            messages.error(request, "Ya existe un usuario con este correo.")
+              
+                user = form.save(commit=False)
+                
+               
+                user.password = make_password(form.cleaned_data['password'])
+                user.is_active = False  
 
-        
+                user.save()
+                return render(request, 'usertemplates/register.html', {
+                    'form': form,
+                    'success': 'Your account has been successfully created.' 
+                })
+            else:
+                return render(request, 'usertemplates/register.html', {
+                    'form': form,
+                    'error': 'Unable to create your account. Please check the form.'  
+                })
+
+
+        else:
+            messages.error(request, "A user with this email already exists.")
+            
     else:
         form = UserForm()
 
     return render(request, 'usertemplates/register.html', {'form': form})
   
-  
+
 
 def clientside_login(request):
     if request.method == 'POST':
@@ -293,8 +310,9 @@ def clientside_login(request):
     else:
         form = LoginForm()
 
-    return render(request, 'usertemplates/login.html', {'form': form})
-  
+    return render(request, 'usertemplates/logIn.html', {'form': form})
+
+logger = logging.getLogger(__name__)  
 
 
 class ProductAPIView(APIView):
