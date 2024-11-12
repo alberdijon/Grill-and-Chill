@@ -34,6 +34,11 @@ urlpatterns = [
 
     path('v1/products/', views.ProductAPIView.as_view()),
     path('v1/products/<int:pk>/', views.ProductAPIViewDetail.as_view()),
+
+    path('v1/product_alergens/', views.ProductAlergenAPIView.as_view()),
+    path('v1/product_alergens/<int:pk>/', views.ProductAlergenAPIViewDetail.as_view()),
+    
+
     # path('v1/users/', views.UserAPIView.as_view()),
     # path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
     # path('v1/categories/', views.CategoryAPIView.as_view()),

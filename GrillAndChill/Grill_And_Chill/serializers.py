@@ -23,8 +23,6 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
         
-    
-        
 
 class ProductAlergenSerializer(serializers.ModelSerializer):
     products_Id = ProductSerializer()  
@@ -48,3 +46,11 @@ class ProductOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product_Order
         fields = '__all__'
+
+
+class ProductAlergenDescriptionSerializer(serializers.ModelSerializer):
+    alergens_Id = serializers.CharField(source='alergens_Id.description')
+
+    class Meta:
+        model = Product_Alergen
+        fields = ['alergens_Id']

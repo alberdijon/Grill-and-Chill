@@ -108,20 +108,6 @@ $(document).ready(function () {
 });
 let quantity = 1;
 
-/*function openModal(title, description, price, imageUrl) {
-  document.getElementById("modalTitle").innerText = title;
-  document.getElementById("modalDescription").innerText = description;
-  document.getElementById("modalPrice").innerText = `${price}€`;
-  document.getElementById("modalImg").src = imageUrl;
-  document.getElementById("quantity").innerText = quantity;
-  document.getElementById("productModal").style.display = "block";
-}
-
-function closeModal() {
-  document.getElementById("productModal").style.display = "none";
-  quantity = 1;
-}
-*/
 function changeQuantity(amount) {
   quantity += amount;
   if (quantity < 1) quantity = 1;
@@ -135,4 +121,90 @@ function toggleProducts() {
   productContainer.classList.toggle("visible");
 
   toggleArrow.classList.toggle("rotated");
+}
+
+async function loadProducts() {
+  try {
+    const response = await fetch("/v1/products/");
+    const products = await response.json();
+    const carouselRow = document.getElementById("harierakoakrow");
+    const burgerRow = document.getElementById("burgerrow");
+    const porstreRow = document.getElementById("postrerow");
+    const bebidaRow = document.getElementById("bebidarow");
+
+    products.forEach((product) => {
+      const item = document.createElement("div");
+      item.className = "item text-center";
+      item.onclick = () =>
+        openModal(
+          product.name,
+          product.description,
+          product.price,
+          `/static/resources/products/${product.foto}`,
+          product.id
+        );
+
+      const img = document.createElement("img");
+      img.src = `/static/resources/products/${product.foto}`;
+      img.alt = product.name;
+      img.className = "carousel-img";
+
+      const description = document.createElement("p");
+      description.innerText = product.name;
+
+      item.appendChild(img);
+      item.appendChild(description);
+
+      if (product.category.id == 1) {
+        carouselRow.appendChild(item);
+      } else if (product.category.id == 2) {
+        burgerRow.appendChild(item);
+      } else if (product.category.id == 3) {
+        porstreRow.appendChild(item);
+      } else if (product.category.id == 4) {
+        bebidaRow.appendChild(item);
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
+}
+
+// Llama a la función cuando se carga la página
+document.addEventListener("DOMContentLoaded", loadProducts);
+
+// Función para abrir el modal con los detalles del producto
+async function openModal(productName, productDescription, productPrice, productImage, productId) {
+  const response = await fetch(`/v1/product_alergens/${productId}/`);
+  const allergens = await response.json();
+
+  const allergensContainer = document.querySelector(".allergens");
+  allergensContainer.innerHTML = ''; 
+  allergensContainer.innerHTML =' </br>Alergenoak:';
+
+  if (allergens && allergens.length > 0) {
+    allergens.forEach(allergen => {
+      const img = document.createElement("img");
+      img.src = `/static/resources/alergens/${allergen}.png`;
+      img.title = allergen;   
+      allergensContainer.appendChild(img);
+    });
+  } else {
+    const noAllergens = document.createElement("p");
+    noAllergens.innerText = "Este producto no tiene alérgenos registrados.";
+    allergensContainer.appendChild(noAllergens);
+  }
+
+  // Ahora rellenamos los demás campos del modal
+  document.getElementById("modalTitle").innerText = productName;
+  document.getElementById("modalDescription").innerText = productDescription;
+  document.getElementById("modalPrice").innerText = `${productPrice} €`;
+  document.getElementById("modalImg").src = productImage;
+  
+  // Mostrar el modal
+  document.getElementById("productModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("productModal").style.display = "none";
 }
