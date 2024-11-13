@@ -30,12 +30,16 @@ urlpatterns = [
 
     path('clientside/register/', views.clientside_register, name='clientside_register'),
     path('clientside/log-in/', views.clientside_login, name='clientside_login'),
-  
+    path('clientside/perfil/', views.clientside_perfil, name='clientside_perfil'),
+    path('clientside/logout/', views.clientside_logout, name='clientside_logout'),
+
     path('clientside/produktuak/', views.clientside_produktuak, name='clientside_produktuak'),
     path('clientside/saskia/', views.clientside_saskia, name='clientside_saskia'),
   
   
     path('clientside/kontaktuak/', views.clientside_kontaktuak, name='clientside_kontaktuak'),
+
+
 
   
   
@@ -47,9 +51,12 @@ urlpatterns = [
 
     path('v1/product_alergens/', views.ProductAlergenAPIView.as_view()),
     path('v1/product_alergens/<int:pk>/', views.ProductAlergenAPIViewDetail.as_view()),
-  
+ 
+    path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
+
+
     #path('v1/users/', views.UserAPIView.as_view()),
-    #path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
+    #
     #path('v1/categories/', views.CategoryAPIView.as_view()),
     #path('v1/categories/<int:pk>/', views.CategoryAPIViewDetail.as_view()),
     #path('v1/alergens/', views.AlergenAPIView.as_view()), 

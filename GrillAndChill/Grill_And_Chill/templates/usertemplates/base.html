@@ -16,7 +16,7 @@
     </div>
     <nav>
       <ul>
-        <li><a class="nav-link" href="{% url 'clientside_index' %}">Orri Nagusia</a></li>
+        <li><a class="nav-link" href="{% url 'clientside_main' %}">Orri Nagusia</a></li>
         <li><a class="nav-link" href="{% url 'clientside_produktuak' %}">Produktuak</a></li>
         <li><a class="nav-link" href="{% url 'clientside_kontaktuak' %}">Kontaktuak</a></li>
       </ul>
@@ -25,7 +25,17 @@
       <a onclick="toggleCart()" style="cursor:pointer;">
         <img src="{% static 'resources/Saskia.png' %}" alt="Saskia">
       </a>
-      <a href="{% url 'clientside_login' %}"><img src="{% static 'resources/Profile.png' %}" alt="Perfil de Usuario"></a>
+      {% if request.session.user_id %}
+        <a href="{% url 'clientside_perfil' %}">
+          <img src="{% static 'resources/Profile.png' %}" alt="Perfil de Usuario">
+        </a>
+
+      {% else %}
+
+        <a href="{% url 'clientside_login' %}">
+          <img src="{% static 'resources/Profile.png' %}" alt="Perfil de Usuario">
+        </a>
+      {% endif %}
     </div>
   </header>
 
