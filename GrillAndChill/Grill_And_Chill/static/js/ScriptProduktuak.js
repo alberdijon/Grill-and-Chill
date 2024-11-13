@@ -8,104 +8,119 @@ $(document).ready(function () {
     }
   );
 
-  const hasierakoakSection = document.querySelector(".hasierakoak");
-  const items = document.querySelectorAll(".carousel-item .item");
-
-  const observerOptions = {
-    root: hasierakoakSection,
-    threshold: 1,
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        entry.target.style.opacity = "0";
+  document.addEventListener("DOMContentLoaded", () => {
+    const hasierakoakSection = document.querySelector(".hanburgesak");
+    const carouselRow = document.getElementById("burgerrow");
+    const items = document.querySelectorAll(".carousel-item");
+  
+    // Configuración del IntersectionObserver
+    const observerOptions = {
+      root: hasierakoakSection,
+      threshold: 1,
+    };
+  
+    // Observer para manejar la visibilidad de los elementos
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         entry.target.style.transition = "opacity 0.5s";
-      } else {
-        entry.target.style.opacity = "1";
+        if (!entry.isIntersecting) {
+          entry.target.style.opacity = "0";
+        } else {
+          entry.target.style.opacity = "1";
+        }
+      });
+    }, observerOptions);
+  
+    // Observar todos los elementos del carrusel
+    items.forEach((item) => observer.observe(item));
+  
+    // Variables para el manejo del arrastre
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationID;
+  
+    // Clonamos el primer y último elemento para el carrusel infinito
+    const itemCount = items.length;
+    const itemWidth = items[0].getBoundingClientRect().width;
+    const cloneFirst = items[0].cloneNode(true);
+    const cloneLast = items[itemCount - 1].cloneNode(true);
+  
+    // Añadir clones al carrusel
+    carouselRow.appendChild(cloneFirst);
+    carouselRow.insertBefore(cloneLast, items[0]);
+  
+    // Recalcular los elementos actualizados después de los clones
+    const updatedItems = document.querySelectorAll(".carousel-item");
+    const updatedItemCount = updatedItems.length;
+  
+    // Función para actualizar la posición del carrusel
+    const setSliderPosition = () => {
+      carouselRow.style.transform = `translateX(${currentTranslate}px)`;
+    };
+  
+    // Animación de movimiento
+    const animation = () => {
+      setSliderPosition();
+      if (isDragging) requestAnimationFrame(animation);
+    };
+  
+    // Eventos de arrastre
+    carouselRow.addEventListener("mousedown", (event) => {
+      isDragging = true;
+      startPos = event.pageX;
+      animationID = requestAnimationFrame(animation);
+      carouselRow.style.cursor = "grabbing";
+    });
+  
+    carouselRow.addEventListener("mousemove", (event) => {
+      if (isDragging) {
+        const currentPosition = event.pageX;
+        const distanceMoved = currentPosition - startPos;
+        const speedFactor = 1.5;
+        currentTranslate = prevTranslate + distanceMoved * speedFactor;
       }
     });
-  }, observerOptions);
-
-  items.forEach((item) => {
-    observer.observe(item);
-  });
-
-  const carouselRow = document.getElementById("carouselRow");
-  let isDragging = false;
-  let startPos = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationID;
-
-  const itemCount = items.length;
-  const itemWidth = items[0].getBoundingClientRect().width;
-  const cloneFirst = items[0].cloneNode(true);
-  const cloneLast = items[itemCount - 1].cloneNode(true);
-  carouselRow.appendChild(cloneFirst);
-  carouselRow.insertBefore(cloneLast, items[0]);
-
-  const updatedItems = document.querySelectorAll(".carousel-item .item");
-  const updatedItemCount = updatedItems.length;
-
-  const setSliderPosition = () => {
-    carouselRow.style.transform = `translateX(${currentTranslate}px)`;
-  };
-
-  const animation = () => {
-    setSliderPosition();
-    if (isDragging) requestAnimationFrame(animation);
-  };
-
-  carouselRow.addEventListener("mousedown", (event) => {
-    isDragging = true;
-    startPos = event.pageX;
-    animationID = requestAnimationFrame(animation);
-    carouselRow.style.cursor = "grabbing";
-  });
-
-  carouselRow.addEventListener("mousemove", (event) => {
-    if (isDragging) {
-      const currentPosition = event.pageX;
-      const distanceMoved = currentPosition - startPos;
-      const speedFactor = 1.5;
-      currentTranslate = prevTranslate + distanceMoved * speedFactor;
-    }
-  });
-
-  carouselRow.addEventListener("mouseup", () => {
-    isDragging = false;
-    cancelAnimationFrame(animationID);
-    prevTranslate = currentTranslate;
-
-    if (currentTranslate < -((updatedItemCount - 1) * itemWidth)) {
-      currentTranslate = -itemWidth;
-    } else if (currentTranslate > 0) {
-      currentTranslate = -((updatedItemCount - 2) * itemWidth);
-    }
-
-    setSliderPosition();
-    carouselRow.style.cursor = "grab";
-  });
-
-  carouselRow.addEventListener("mouseleave", () => {
-    if (isDragging) {
+  
+    carouselRow.addEventListener("mouseup", () => {
       isDragging = false;
       cancelAnimationFrame(animationID);
       prevTranslate = currentTranslate;
+  
+      // Ajustar la posición si el carrusel se desplaza más allá de los límites
+      if (currentTranslate < -((updatedItemCount - 1) * itemWidth)) {
+        currentTranslate = -itemWidth;
+      } else if (currentTranslate > 0) {
+        currentTranslate = -((updatedItemCount - 2) * itemWidth);
+      }
+  
+      setSliderPosition();
       carouselRow.style.cursor = "grab";
-    }
-  });
-
-  document.addEventListener("mouseup", () => {
-    if (isDragging) {
-      isDragging = false;
-      cancelAnimationFrame(animationID);
-      prevTranslate = currentTranslate;
-      carouselRow.style.cursor = "grab";
-    }
-  });
+    });
+  
+    // Evento cuando el ratón sale del carrusel
+    carouselRow.addEventListener("mouseleave", () => {
+      if (isDragging) {
+        isDragging = false;
+        cancelAnimationFrame(animationID);
+        prevTranslate = currentTranslate;
+        carouselRow.style.cursor = "grab";
+      }
+    });
+  
+    // Capturar el mouseup global para asegurar que se detenga el arrastre si se suelta el ratón fuera del carrusel
+    document.addEventListener("mouseup", () => {
+      if (isDragging) {
+        isDragging = false;
+        cancelAnimationFrame(animationID);
+        prevTranslate = currentTranslate;
+        carouselRow.style.cursor = "grab";
+      }
+      });
 });
+});
+  
 let quantity = 1;
 
 function changeQuantity(amount) {
@@ -153,9 +168,11 @@ function toggleEdariak() {
 
 async function loadProducts() {
   try {
+    console.log("Cargando productos...");
     const response = await fetch("/v1/products/");
     const products = await response.json();
-    const carouselRow = document.getElementById("harierakoakrow");
+    console.log(products);
+    const carouselRow = document.getElementById("hasierakoakrow");
     const burgerRow = document.getElementById("burgerrow");
     const porstreRow = document.getElementById("postrerow");
     const bebidaRow = document.getElementById("bebidarow");
@@ -198,10 +215,8 @@ async function loadProducts() {
   }
 }
 
-// Llama a la función cuando se carga la página
 document.addEventListener("DOMContentLoaded", loadProducts);
 
-// Función para abrir el modal con los detalles del producto
 async function openModal(productName, productDescription, productPrice, productImage, productId) {
   const response = await fetch(`/v1/product_alergens/${productId}/`);
   const allergens = await response.json();
@@ -223,13 +238,11 @@ async function openModal(productName, productDescription, productPrice, productI
     allergensContainer.appendChild(noAllergens);
   }
 
-  // Ahora rellenamos los demás campos del modal
   document.getElementById("modalTitle").innerText = productName;
   document.getElementById("modalDescription").innerText = productDescription;
   document.getElementById("modalPrice").innerText = `${productPrice} €`;
   document.getElementById("modalImg").src = productImage;
   
-  // Mostrar el modal
   document.getElementById("productModal").style.display = "block";
 }
 

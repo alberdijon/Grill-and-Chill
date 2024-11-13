@@ -1,30 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Press Start 2P", serif;
 }
-
 body {
   background-image: url("../resources/fondo 1.png");
   background-repeat: repeat;
 }
-
 .gorputza {
   width: 75%;
   margin: auto;
   background-color: #242342;
 }
-
-.gorputza h1{
+.gorputza h1 {
   margin: auto;
-  color: #FCEA5E;
+  color: #fcea5e;
   text-align: center;
   margin-top: 20px;
 }
-
 header {
   display: flex;
   justify-content: space-between;
@@ -33,25 +28,23 @@ header {
   padding: 10px 20px;
   width: 75%;
   box-sizing: border-box;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   margin: auto;
 }
-
 header .logo img {
   max-width: 100px;
   height: auto;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
-
 nav ul {
   list-style: none;
+  justify-content: space-between;
   display: flex;
   gap: 20px;
   margin: 0;
   padding: 0;
   white-space: nowrap;
 }
-
 nav a {
   text-decoration: none;
   color: #fcea5e;
@@ -59,12 +52,10 @@ nav a {
   font-size: 1em;
   display: block;
 }
-
 .icons img {
   width: 30px;
   margin-left: 10px;
 }
-
 .main .banner {
   text-align: center;
   padding: 50px;
@@ -72,41 +63,36 @@ nav a {
   color: #fff;
   padding-top: 100px;
 }
-
 .banner h1 {
-  color: #FCEA5E;
+  color: #fcea5e;
   font-size: 5em;
   font-family: "Press Start 2P", serif;
   margin-top: 20px;
   padding-bottom: 20px;
 }
-
 .karratua {
-  background-color: #FCEA5E;
+  background-color: #fcea5e;
   width: 40%;
   margin-left: 30px;
   max-width: 500px;
   margin-right: 20px;
   color: #242342;
 }
-
 .karratua2 {
-  background-color: #00D0FF;
+  background-color: #00d0ff;
   width: 40%;
   max-width: 500px;
   margin-right: 20px;
   color: #242342;
   margin-left: auto;
 }
-
 .karratua3 {
-  background-color: #FF00DD;
+  background-color: #ff00dd;
   width: 40%;
   max-width: 500px;
   margin-left: 30px;
   color: #242342;
 }
-
 .textua {
   color: #242342;
   font-size: 1em;
@@ -115,9 +101,8 @@ nav a {
   padding-bottom: 20px;
   text-align: left;
 }
-
 .about {
-  background-color: #FCEA5E; 
+  background-color: #fcea5e;
   width: 600px;
   padding: 20px;
   margin-bottom: 20px;
@@ -126,26 +111,26 @@ nav a {
   margin-left: 20px;
   margin-top: 50px;
 }
-
 .about .content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
+.about h2 {
+  justify-content: center;
+  color: #242342;
+}
 .about p {
   font-size: 1em;
   margin-bottom: 20px;
 }
-
 .about img {
   width: 100%;
   border: 3px dashed magenta;
   display: block;
 }
-
 .products {
-  background-color: #00D0FF; 
+  background-color: #00d0ff;
   width: 500px;
   padding: 20px;
   border-radius: 10px;
@@ -155,24 +140,24 @@ nav a {
   margin-top: -400px;
   height: 500px;
 }
-
 .products .content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
+.products h2 {
+  justify-content: center;
+  color: #242342;
+}
 .products img {
   width: 150px;
   height: auto;
   margin-bottom: 20px;
 }
-
 .products p {
-  font-size: 1em;
+  font-size: 0.9em;
   color: #242342;
 }
-
 footer {
   display: flex;
   justify-content: space-between;
@@ -182,36 +167,29 @@ footer {
   color: #fcea5e;
   margin: auto;
 }
-
 footer address {
   text-align: center;
 }
-
 .social {
   display: flex;
   gap: 10px;
 }
-
-.Grill{
+.Grill {
   text-align: center;
 }
-
 .social img {
   width: 30px;
   height: auto;
 }
-
 .scroll-text {
   opacity: 0;
   transform: translateX(100%);
   transition: all 0.5s ease;
 }
-
 .scroll-text.show {
   opacity: 1;
   transform: translateX(0);
 }
-
 .hasierakoak {
   color: #242342;
   font-size: 3em;
@@ -226,7 +204,6 @@ footer address {
   margin-top: 20px;
   padding-bottom: 20px;
 }
-
 .postreak {
   color: #242342;
   font-size: 3em;
@@ -234,7 +211,6 @@ footer address {
   margin-top: 20px;
   padding-bottom: 20px;
 }
-
 .edariak {
   color: #242342;
   font-size: 3em;
@@ -242,119 +218,72 @@ footer address {
   margin-top: 20px;
   padding-bottom: 20px;
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
+h2 {
+  font-size: 1.5em;
+  color: #fcea5e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
 }
 
-.hasierakoak h2 {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1.5em;
-  color: #fcea5e;
-  padding: 10px;
-}
-.hanburgesak h2 {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1.5em;
-  color: #fcea5e;
-  padding: 10px;
-}
-.postreak h2 {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1.5em;
-  color: #fcea5e;
-  padding: 10px;
-}
-.edariak h2 {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1.5em;
-  color: #fcea5e;
-  padding: 10px;
-}
-.arrow {
+h2 .arrow {
+  font-size: 1em;
   margin-left: 10px;
-  transition: transform 0.3s ease;
 }
-
 .arrow.rotated {
   transform: rotate(180deg);
 }
-
 .product-container {
   display: flex;
   gap: 15px;
   transition: max-height 0.3s ease, opacity 0.3s ease;
   overflow: hidden;
 }
-
 .hidden {
   max-height: 0;
   opacity: 0;
   pointer-events: none;
 }
-
 .visible {
   max-height: 500px;
   opacity: 1;
   pointer-events: auto;
 }
-
 .carousel-inner {
   overflow: hidden;
 }
-
 .carousel-item {
   display: flex;
-  transition: transform 0.5s ease; 
+  transition: transform 0.5s ease;
 }
-
 .image-row {
   display: flex;
-  gap: 20px;                   
+  gap: 20px;
 }
-
 .item {
-  text-align: center;        
-  background-color: #fcea5e;   
+  text-align: center;
+  background-color: #fcea5e;
 }
-
 .item img {
-  width: 300px;                 
-  height: auto;                 
-  margin-bottom: 5px; 
+  width: 300px;
+  height: auto;
+  margin-bottom: 5px;
 }
-
 .item p {
   font-size: 14px;
   color: #333;
   margin: 0;
 }
-
 .carousel-img {
   width: 100%;
-  height: auto; 
+  height: auto;
   padding: 20px;
 }
-
 .cart-icon img {
   width: 50px;
   cursor: pointer;
 }
-
 .cart {
   position: fixed;
   right: 0;
@@ -369,43 +298,36 @@ body {
   color: #fcea5e;
   font-family: "Press Start 2P", serif;
 }
-
 .cart.open {
   transform: translateX(0);
 }
-
 .cart h2 {
   font-size: 1.2em;
   color: #fcea5e;
   text-align: center;
   margin-bottom: 20px;
 }
-
 .empty-message {
   color: #fcea5e;
   font-size: 0.9em;
   text-align: center;
 }
-
 .cart-items {
   margin-bottom: 20px;
   color: #fcea5e;
 }
-
 .cart-item {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
   font-size: 0.9em;
 }
-
 .cart-item button {
   background-color: transparent;
   border: none;
   color: #fcea5e;
   cursor: pointer;
 }
-
 .cart-total {
   display: flex;
   justify-content: space-between;
@@ -413,7 +335,6 @@ body {
   font-size: 1em;
   margin-top: 10px;
 }
-
 .checkout-button {
   width: 100%;
   padding: 10px;
@@ -424,7 +345,6 @@ body {
   text-align: center;
   border-radius: 5px;
 }
-
 .modal {
   display: none;
   align-items: center;
@@ -437,7 +357,6 @@ body {
   top: 0;
   background-color: rgba(0, 0, 0, 0.7);
 }
-
 .modal-content {
   background-color: #e7b86b;
   padding: 20px;
@@ -450,12 +369,11 @@ body {
   margin: auto;
   margin-top: 100px;
 }
-
 .modal-content img {
-  height: auto;
+  height: 30%;
   margin: auto;
+  width: 30%;
 }
-
 .close {
   top: 10px;
   right: 20px;
@@ -464,12 +382,10 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
-
 .close:hover,
 .close:focus {
   color: black;
 }
-
 .quantity-control {
   display: flex;
   align-items: center;
@@ -477,12 +393,10 @@ body {
   gap: 10px;
   margin-top: 10px;
 }
-
 .quantity-control button {
   font-size: 18px;
   padding: 5px 10px;
 }
-
 .add-to-cart {
   background-color: #622455;
   color: #fcea5e;
@@ -492,7 +406,6 @@ body {
   border: none;
   font-family: "Press Start 2P", serif;
 }
-
 .form-container {
   display: flex;
   flex-direction: column;
@@ -509,18 +422,15 @@ body {
   font-family: "Press Start 2P", sans-serif;
   align-items: center;
 }
-
 form {
   width: 100%;
   align-content: center;
   align-self: center;
 }
-
 .form-container h2 {
-  font-size: 24px;
+  font-size: 2em;
   margin-bottom: 20px;
 }
-
 .form-row {
   align-content: center;
   align-self: center;
@@ -531,7 +441,6 @@ form {
   margin-left: 5%;
   margin-top: 20px;
 }
-
 .form-input {
   display: flex;
   gap: 15px;
@@ -539,14 +448,15 @@ form {
   flex-direction: column;
   flex: 1;
 }
-
 .form-input label {
   font-weight: bold;
   color: #ffd700;
   font-size: 12px;
   text-align: left;
 }
-
+a{
+  color: #00d0ff;
+}
 .form-input input {
   background-color: #4e4c68;
   border: none;
@@ -558,12 +468,10 @@ form {
   height: 45px;
   padding: 10px;
 }
-
 .form-container h2 {
   font-size: 24px;
   margin-bottom: 20px;
 }
-
 .submit-btn {
   background-color: #822459;
   border: none;
@@ -575,88 +483,159 @@ form {
   cursor: pointer;
   margin-top: 20px;
 }
-
 .submit-btn:hover {
   background-color: #a02d67;
 }
-@media (max-width: 768px) {
+@media (max-width: 858px) {
+  
   header {
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    width: 100%;
   }
-
+  
   nav ul {
     flex-direction: column;
     gap: 15px;
     align-items: center;
     margin-top: 15px;
   }
-
+  
   nav a {
     font-size: 1.2em;
   }
-
+  
   .icons img {
     width: 25px;
   }
-
-
+  
   .gorputza {
-    width: 95%;
+    width: 100%;
   }
-
+  
   .karratua,
   .karratua2,
   .karratua3 {
     width: 100%;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 20px;
   }
-
-  .about, .products {
-    width: 90%;
+  
+  .about,
+  .products {
+    width: 100%;
     margin: 0 auto;
     margin-bottom: 20px;
   }
-
+  
   footer {
     flex-direction: column;
     align-items: center;
     gap: 20px;
-  }
-
-  .social img {
-    width: 40px;
-  }
-
-  .banner h1 {
-    font-size: 3em;
-  }
-
-  .textua {
-    font-size: 0.9em;
-  }
-
-  .about, .products {
     width: 100%;
   }
-
+  
   .social img {
     width: 30px;
   }
-
+  
+  .banner h1 {
+    font-size: 2em;
+  }
+  
+  .textua {
+    font-size: 0.9em;
+  }
+  
+  .hasierakoak,
+  .hanburgesak,
+  .postreak,
+  .edariak {
+    font-size: 1em;
+  }
+  
   .cart {
     width: 100%;
     padding: 10px;
   }
-
+  
   .cart-items {
     font-size: 0.8em;
   }
-
+  
   .product-container {
     flex-direction: column;
+  }
+  
+  .image-row {
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 400px;
+  }
+  
+  .item {
+    max-width: none;
+    margin: 0 auto 20px;
+  }
+  
+  .carousel-img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  h2 {
+    font-size: 1em;
+    padding: 5px 0;
+    margin-left: 5%;
+  }
+  
+  span {
+    margin-right: 20%;
+    cursor: pointer;
+  }
+  
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .form-container { 
+    width: 100%;
+  }
+  
+  video {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .products p{
+    font-size: 1.25em;
+  }
+
+  .about p{
+    font-size: 1.25em;
+  }
+
+  .form-container h2 {
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+
+  .form-row {
+    align-content: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    column-gap: 20%;
+    margin-left: 5%;
+    margin-top: 20px;
+  }
+
+  .footer p{
+    font-size: 2em;
   }
 }
