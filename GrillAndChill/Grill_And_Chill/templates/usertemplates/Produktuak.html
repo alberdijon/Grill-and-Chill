@@ -1,5 +1,4 @@
-{% extends 'usertemplates/base.html' %}
-{% block content %}{% load static %}
+{% extends 'usertemplates/base.html' %} {% block content %}{% load static %}
 <div class="gorputza">
   <section class="main">
     <div class="banner">
@@ -9,244 +8,102 @@
 
   <section class="main">
     <div class="hasierakoak">
+      
       <h2 onclick="toggleHasierakoak()">
         HASIERAKOAK
         <span class="arrow" id="toggleArrow">▼</span>
       </h2>
       <div id="productContainer" class="visible">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div
+          id="carouselExampleSlidesOnly"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <div class="d-flex image-row" id="carouselRow">
-                <div class="item text-center"
-                  onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, '{% static 'resources/Mozzarella.png' %}')">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Mozzarella" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Nacho.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Saskia.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-              </div>
+              <div class="d-flex image-row" id="harierakoakrow"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="hanburgesak">
-      <h2 onclick="toggleHanburgesak()">
-        HANBURGESAK
-        <span class="arrow" id="toggleArrow2">▼</span>
+    <div class="hasierakoak">
+      <h2 onclick="toggleProducts()">
+        HANBURGUESAK <span class="arrow" id="toggleArrow">▼</span>
       </h2>
-      <div id="productContainer2" class="visible">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div id="productContainer" class="visible">
+        <div
+          id="carouselExampleSlidesOnly"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <div class="d-flex image-row" id="carouselRow">
-                <div class="item text-center"
-                  onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, '{% static 'resources/Mozzarella.png' %}')">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Mozzarella" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Nacho.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Saskia.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-              </div>
+              <div class="d-flex image-row" id="burgerrow"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="postreak">
-      <h2 onclick="togglePostreak()">
-        POSTREAK
-        <span class="arrow" id="toggleArrow3">▼</span>
+
+      <h2 onclick="toggleProducts()">
+        POSTREAK <span class="arrow" id="toggleArrow">▼</span>
       </h2>
-      <div id="productContainer3" class="visible">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div id="productContainer" class="visible">
+        <div
+          id="carouselExampleSlidesOnly"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <div class="d-flex image-row" id="carouselRow">
-                <div class="item text-center"
-                  onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, '{% static 'resources/Mozzarella.png'%}')">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Mozzarella" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Nacho.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Saskia.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-              </div>
+              <div class="d-flex image-row" id="postrerow"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="edariak">
-      <h2 onclick="toggleEdariak()">
-        EDARIAK
-        <span class="arrow" id="toggleArrow4">▼</span>
+
+      <h2 onclick="toggleProducts()">
+        EDARIAK <span class="arrow" id="toggleArrow">▼</span>
       </h2>
-      <div id="productContainer4" class="visible">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div id="productContainer" class="visible">
+        <div
+          id="carouselExampleSlidesOnly"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <div class="d-flex image-row" id="carouselRow">
-                <div class="item text-center"
-                  onclick="openModal('Mozzarella', 'Mozzarella makilatxoak', 5, '{% static 'resources/Mozzarella.png' %}')">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Mozzarella" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Nacho.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Saskia.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static '/resources/Smash.jpg' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Salsa Mayonesa Ahumada" class="carousel-img">
-                  <p>Oilasko barbakoa hegalak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Pan de patata" class="carousel-img">
-                  <p>Grill natxoak</p>
-                </div>
-                <div class="item text-center">
-                  <img src="{% static 'resources/Mozzarella.png' %}" alt="Bacon" class="carousel-img">
-                  <p>Mozzarella makilatxoak</p>
-                </div>
-              </div>
+              <div class="d-flex image-row" id="bebidarow"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
 </div>
+
 <div id="productModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
-    <img id="modalImg" src="" alt="Product Image">
+    <img id="modalImg" src="" alt="Product Image" />
     <h2 id="modalTitle"></h2>
     <p id="modalDescription"></p>
     <div class="allergens">
       <p>ALERGENOAK:</p>
-      <img src="{% static 'resources/logo huevos 1.png' %}" alt="Huevo" title="Huevo">
-      <img src="{% static 'resources/logo leche 1.png' %}" alt="Lactosa" title="Lactosa">
+      <img
+        src="{% static 'resources/logo huevos 1.png' %}"
+        alt="Huevo"
+        title="Huevo"
+      />
+      <img
+        src="{% static 'resources/logo leche 1.png' %}"
+        alt="Lactosa"
+        title="Lactosa"
+      />
     </div>
     <div class="quantity-control">
       <button onclick="changeQuantity(-1)">-</button>
@@ -256,7 +113,5 @@
     <p id="modalPrice"></p>
     <button class="add-to-cart" id="add-to-cart" onclick="addToCartFromModal()">SASKIRA GEHITU</button>
   </div>
-</div>
-</section>
 </div>
 {% endblock %}
