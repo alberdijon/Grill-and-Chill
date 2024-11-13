@@ -1,8 +1,9 @@
 from django.contrib  import messages
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import logout, login
 from django.shortcuts import render, get_object_or_404 , redirect
 import logging
-from .models import User, Product, Order , Product_Order
+from .models import User, Product, Order , Product_Order, Product_Alergen
 from django.utils import timezone
 from django.db.models import Count
 from datetime import timedelta
@@ -300,7 +301,8 @@ def clientside_login(request):
 
             if usuario:
                 if password == usuario.password:
-                    return redirect('clientside_index')
+                    request.session['user_id'] = usuario.id 
+                    return redirect('clientside_main')
                 else:
                     messages.error(request, "La contraseña es incorrecta.")
             else:
@@ -311,6 +313,23 @@ def clientside_login(request):
         form = LoginForm()
 
     return render(request, 'usertemplates/logIn.html', {'form': form})
+
+def clientside_logout(request):
+    logout(request)
+    return redirect('clientside_main')
+
+
+def clientside_perfil(request):
+    # Obtén el usuario actual usando el ID almacenado en la sesión
+    user_id = request.session.get('user_id')
+    if not user_id:
+        # Si no hay un ID de usuario en la sesión, redirige a la página de inicio de sesión
+        return redirect('clientside_login')
+    
+    # Obtén el objeto User usando el ID
+    user = get_object_or_404(User, id=user_id)
+    return render(request, 'usertemplates/Perfil.html', {'user': user})
+
 
 logger = logging.getLogger(__name__)  
 
@@ -388,6 +407,34 @@ class ProductAlergenAPIViewDetail(APIView):
     def delete(self, request, pk, format=None):
         product_alergen = self.get_object(pk)
         product_alergen.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+
+class UserAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        user = self.get_object(pk)
+        user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     # def put(self, request, pk, format=None):
