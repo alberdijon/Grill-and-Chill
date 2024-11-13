@@ -8,8 +8,10 @@
 
   <section class="main">
     <div class="hasierakoak">
-      <h2 onclick="toggleProducts()">
-        HASIERAKOAK <span class="arrow" id="toggleArrow">▼</span>
+      
+      <h2 onclick="toggleHasierakoak()">
+        HASIERAKOAK
+        <span class="arrow" id="toggleArrow">▼</span>
       </h2>
       <div id="productContainer" class="visible">
         <div
@@ -44,6 +46,7 @@
       </div>
     </div>
     <div class="postreak">
+
       <h2 onclick="toggleProducts()">
         POSTREAK <span class="arrow" id="toggleArrow">▼</span>
       </h2>
@@ -62,6 +65,7 @@
       </div>
     </div>
     <div class="edariak">
+
       <h2 onclick="toggleProducts()">
         EDARIAK <span class="arrow" id="toggleArrow">▼</span>
       </h2>
@@ -107,7 +111,7 @@
       <button onclick="changeQuantity(1)">+</button>
     </div>
     <p id="modalPrice"></p>
-    <button class="add-to-cart">SASKIRA GEHITU</button>
+    <button class="add-to-cart" id="add-to-cart" onclick="addToCartFromModal()">SASKIRA GEHITU</button>
   </div>
 </div>
 {% endblock %}
