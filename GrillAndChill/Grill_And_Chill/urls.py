@@ -34,16 +34,12 @@ urlpatterns = [
     path('clientside/logout/', views.clientside_logout, name='clientside_logout'),
 
     path('clientside/produktuak/', views.clientside_produktuak, name='clientside_produktuak'),
-    path('clientside/saskia/', views.clientside_saskia, name='clientside_saskia'),
   
   
     path('clientside/kontaktuak/', views.clientside_kontaktuak, name='clientside_kontaktuak'),
 
 
-
-  
-  
-
+    path('clientside/add_to_cart/', views.add_to_cart, name='add_to_cart'),
 
     path('v1/products/', views.ProductAPIView.as_view()),
     path('v1/products/<int:pk>/', views.ProductAPIViewDetail.as_view()),
@@ -54,6 +50,12 @@ urlpatterns = [
  
     path('v1/users/<int:pk>/', views.UserAPIViewDetail.as_view()),
 
+
+    path('api/cart/<int:user_id>/', views.UserCartAPIView.as_view(), name='user_cart'),
+    
+    path('api/update_cart/', views.update_cart, name='update_cart'),
+    
+    path('api/cart/<int:user_id>/product/<int:product_id>/delete/', views.DeleteProductFromCartAPIView.as_view(), name='delete_cart_product'),
 
     #path('v1/users/', views.UserAPIView.as_view()),
     #

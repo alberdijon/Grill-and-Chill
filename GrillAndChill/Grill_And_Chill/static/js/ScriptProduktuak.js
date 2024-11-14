@@ -112,7 +112,11 @@ function changeQuantity(amount) {
   quantity += amount;
   if (quantity < 1) quantity = 1;
   document.getElementById("quantity").innerText = quantity;
+  
+  document.getElementById("quantity-input").innerText = quantity;
+  document.getElementById("quantity-input").value = quantity;
 }
+
 function toggleHasierakoak() {
   const productContainer = document.getElementById("productContainer");
   const toggleArrow = document.getElementById("toggleArrow");
@@ -148,7 +152,6 @@ function toggleEdariak() {
   productContainer.classList.toggle("visible");
 
   toggleArrow.classList.toggle("rotated");
-  
 }
 
 async function loadProducts() {
@@ -194,7 +197,7 @@ async function loadProducts() {
       }
     });
   } catch (error) {
-    console.error("Error fetching products:", error);
+    
   }
 }
 
@@ -202,19 +205,25 @@ async function loadProducts() {
 document.addEventListener("DOMContentLoaded", loadProducts);
 
 // Función para abrir el modal con los detalles del producto
-async function openModal(productName, productDescription, productPrice, productImage, productId) {
+async function openModal(
+  productName,
+  productDescription,
+  productPrice,
+  productImage,
+  productId
+) {
   const response = await fetch(`/v1/product_alergens/${productId}/`);
   const allergens = await response.json();
 
   const allergensContainer = document.querySelector(".allergens");
-  allergensContainer.innerHTML = ''; 
-  allergensContainer.innerHTML =' </br>Alergenoak:';
+  allergensContainer.innerHTML = "";
+  allergensContainer.innerHTML = " </br>Alergenoak:";
 
   if (allergens && allergens.length > 0) {
-    allergens.forEach(allergen => {
+    allergens.forEach((allergen) => {
       const img = document.createElement("img");
       img.src = `/static/resources/alergens/${allergen}.png`;
-      img.title = allergen;   
+      img.title = allergen;
       allergensContainer.appendChild(img);
     });
   } else {
@@ -223,12 +232,17 @@ async function openModal(productName, productDescription, productPrice, productI
     allergensContainer.appendChild(noAllergens);
   }
 
+
+
+
   // Ahora rellenamos los demás campos del modal
   document.getElementById("modalTitle").innerText = productName;
   document.getElementById("modalDescription").innerText = productDescription;
   document.getElementById("modalPrice").innerText = `${productPrice} €`;
   document.getElementById("modalImg").src = productImage;
-  
+  document.getElementById("product_id").value = productId;
+
+
   // Mostrar el modal
   document.getElementById("productModal").style.display = "block";
 }
