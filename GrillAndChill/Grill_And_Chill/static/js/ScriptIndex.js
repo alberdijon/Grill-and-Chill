@@ -7,17 +7,20 @@ $(document).ready(function(){
             $(this).animate({ fontSize: '1em' }, 500);
         }
     );
-    const scrollText = document.querySelector(".scroll-text");
+    const gif = $('.products img');
 
-    function handleScroll() {
-        const textPosition = scrollText.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
+    // Cuando se haga scroll en la página
+    $(window).on('scroll', function() {
+        // Obtener el desplazamiento vertical de la página
+        const scrollPosition = $(window).scrollTop();
+        
+        // Calcular el movimiento del GIF basándonos en el desplazamiento
+        // A medida que se baja, el GIF se moverá hacia la izquierda.
+        const moveAmount = scrollPosition * 0.3; // Ajusta el factor para mayor o menor movimiento
 
-        if (textPosition < screenPosition) {
-            scrollText.classList.add("show");
-            window.removeEventListener("scroll", handleScroll); // Remueve el event listener después de mostrar el texto
-        }
-    }
-
-    window.addEventListener("scroll", handleScroll);
+        // Aplicar el movimiento al GIF en el eje X (horizontal)
+        gif.css({
+            transform: `translateX(${moveAmount}px)` // Mueve el GIF en el eje X
+        });
+    });
 })

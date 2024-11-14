@@ -1,126 +1,204 @@
 $(document).ready(function () {
-  $("a.nav-link").hover(
-    function () {
-      $(this).animate({ fontSize: "1.5em" }, 500);
-    },
-    function () {
-      $(this).animate({ fontSize: "1em" }, 500);
-    }
-  );
+  // Hanburgesak Section (ya configurado)
+  const hanburgesakSection = document.querySelector(".hanburgesak");
+  const hanburgesakItems = document.querySelectorAll(".carousel-item .item");
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const hasierakoakSection = document.querySelector(".hanburgesak");
-    const carouselRow = document.getElementById("burgerrow");
-    const items = document.querySelectorAll(".carousel-item");
-  
-    // Configuración del IntersectionObserver
-    const observerOptions = {
-      root: hasierakoakSection,
-      threshold: 1,
-    };
-  
-    // Observer para manejar la visibilidad de los elementos
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+  const hanburgesakObserverOptions = {
+    root: hanburgesakSection,
+    threshold: 1,
+  };
+
+  const hanburgesakObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        entry.target.style.opacity = "0";
         entry.target.style.transition = "opacity 0.5s";
-        if (!entry.isIntersecting) {
-          entry.target.style.opacity = "0";
-        } else {
-          entry.target.style.opacity = "1";
-        }
-      });
-    }, observerOptions);
-  
-    // Observar todos los elementos del carrusel
-    items.forEach((item) => observer.observe(item));
-  
-    // Variables para el manejo del arrastre
-    let isDragging = false;
-    let startPos = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
-    let animationID;
-  
-    // Clonamos el primer y último elemento para el carrusel infinito
-    const itemCount = items.length;
-    const itemWidth = items[0].getBoundingClientRect().width;
-    const cloneFirst = items[0].cloneNode(true);
-    const cloneLast = items[itemCount - 1].cloneNode(true);
-  
-    // Añadir clones al carrusel
-    carouselRow.appendChild(cloneFirst);
-    carouselRow.insertBefore(cloneLast, items[0]);
-  
-    // Recalcular los elementos actualizados después de los clones
-    const updatedItems = document.querySelectorAll(".carousel-item");
-    const updatedItemCount = updatedItems.length;
-  
-    // Función para actualizar la posición del carrusel
-    const setSliderPosition = () => {
-      carouselRow.style.transform = `translateX(${currentTranslate}px)`;
-    };
-  
-    // Animación de movimiento
-    const animation = () => {
-      setSliderPosition();
-      if (isDragging) requestAnimationFrame(animation);
-    };
-  
-    // Eventos de arrastre
-    carouselRow.addEventListener("mousedown", (event) => {
-      isDragging = true;
-      startPos = event.pageX;
-      animationID = requestAnimationFrame(animation);
-      carouselRow.style.cursor = "grabbing";
-    });
-  
-    carouselRow.addEventListener("mousemove", (event) => {
-      if (isDragging) {
-        const currentPosition = event.pageX;
-        const distanceMoved = currentPosition - startPos;
-        const speedFactor = 1.5;
-        currentTranslate = prevTranslate + distanceMoved * speedFactor;
+      } else {
+        entry.target.style.opacity = "1";
       }
     });
-  
-    carouselRow.addEventListener("mouseup", () => {
-      isDragging = false;
-      cancelAnimationFrame(animationID);
-      prevTranslate = currentTranslate;
-  
-      // Ajustar la posición si el carrusel se desplaza más allá de los límites
-      if (currentTranslate < -((updatedItemCount - 1) * itemWidth)) {
-        currentTranslate = -itemWidth;
-      } else if (currentTranslate > 0) {
-        currentTranslate = -((updatedItemCount - 2) * itemWidth);
-      }
-  
-      setSliderPosition();
-      carouselRow.style.cursor = "grab";
-    });
-  
-    // Evento cuando el ratón sale del carrusel
-    carouselRow.addEventListener("mouseleave", () => {
-      if (isDragging) {
-        isDragging = false;
-        cancelAnimationFrame(animationID);
-        prevTranslate = currentTranslate;
-        carouselRow.style.cursor = "grab";
-      }
-    });
-  
-    // Capturar el mouseup global para asegurar que se detenga el arrastre si se suelta el ratón fuera del carrusel
-    document.addEventListener("mouseup", () => {
-      if (isDragging) {
-        isDragging = false;
-        cancelAnimationFrame(animationID);
-        prevTranslate = currentTranslate;
-        carouselRow.style.cursor = "grab";
-      }
-      });
+  }, hanburgesakObserverOptions);
+
+  hanburgesakItems.forEach((item) => {
+    hanburgesakObserver.observe(item);
+  });
+
+  const carouselRowHanburgesak = document.getElementById("burgerrow");
+  let isDraggingHanburgesak = false;
+  let startPosHanburgesak = 0;
+  let currentTranslateHanburgesak = 0;
+  let prevTranslateHanburgesak = 0;
+  let animationIDHanburgesak;
+
+  const itemCountHanburgesak = hanburgesakItems.length;
+  const itemWidthHanburgesak = hanburgesakItems[0].getBoundingClientRect().width;
+  const cloneFirstHanburgesak = hanburgesakItems[0].cloneNode(true);
+  const cloneLastHanburgesak = hanburgesakItems[itemCountHanburgesak - 1].cloneNode(true);
+  carouselRowHanburgesak.appendChild(cloneFirstHanburgesak);
+  carouselRowHanburgesak.insertBefore(cloneLastHanburgesak, hanburgesakItems[0]);
+
+  const updatedItemsHanburgesak = document.querySelectorAll(".carousel-item .item");
+  const updatedItemCountHanburgesak = updatedItemsHanburgesak.length;
+
+  const setSliderPositionHanburgesak = () => {
+    carouselRowHanburgesak.style.transform = `translateX(${currentTranslateHanburgesak}px)`;
+  };
+
+  const animationHanburgesak = () => {
+    setSliderPositionHanburgesak();
+    if (isDraggingHanburgesak) requestAnimationFrame(animationHanburgesak);
+  };
+
+  carouselRowHanburgesak.addEventListener("mousedown", (event) => {
+    isDraggingHanburgesak = true;
+    startPosHanburgesak = event.pageX;
+    animationIDHanburgesak = requestAnimationFrame(animationHanburgesak);
+    carouselRowHanburgesak.style.cursor = "grabbing";
+  });
+
+  carouselRowHanburgesak.addEventListener("mousemove", (event) => {
+    if (isDraggingHanburgesak) {
+      const currentPositionHanburgesak = event.pageX;
+      const distanceMovedHanburgesak = currentPositionHanburgesak - startPosHanburgesak;
+      const speedFactorHanburgesak = 1;
+      currentTranslateHanburgesak = prevTranslateHanburgesak + distanceMovedHanburgesak * speedFactorHanburgesak;
+    }
+  });
+
+  carouselRowHanburgesak.addEventListener("mouseup", () => {
+    isDraggingHanburgesak = false;
+    cancelAnimationFrame(animationIDHanburgesak);
+    prevTranslateHanburgesak = currentTranslateHanburgesak;
+
+    if (currentTranslateHanburgesak < -((updatedItemCountHanburgesak - 1) * itemWidthHanburgesak)) {
+      currentTranslateHanburgesak = -itemWidthHanburgesak; 
+    } else if (currentTranslateHanburgesak > 0) {
+      currentTranslateHanburgesak = -((updatedItemCountHanburgesak - 2) * itemWidthHanburgesak);
+    }
+
+    setSliderPositionHanburgesak();
+    carouselRowHanburgesak.style.cursor = "grab";
+  });
+
+  carouselRowHanburgesak.addEventListener("mouseleave", () => {
+    if (isDraggingHanburgesak) {
+      isDraggingHanburgesak = false;
+      cancelAnimationFrame(animationIDHanburgesak);
+      prevTranslateHanburgesak = currentTranslateHanburgesak;
+      carouselRowHanburgesak.style.cursor = "grab";
+    }
+  });
+
+  document.addEventListener("mouseup", () => {
+    if (isDraggingHanburgesak) {
+      isDraggingHanburgesak = false;
+      cancelAnimationFrame(animationIDHanburgesak);
+      prevTranslateHanburgesak = currentTranslateHanburgesak;
+      carouselRowHanburgesak.style.cursor = "grab";
+    }
+  });
+
+  const edariakSection = document.querySelector(".edariak");
+  const edariakItems = document.querySelectorAll("#bebidarow .item");
+
+const edariakObserverOptions = {
+  root: edariakSection,
+  threshold: 1,
+};
+
+const edariakObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) {
+      entry.target.style.opacity = "0";
+      entry.target.style.transition = "opacity 0.5s";
+    } else {
+      entry.target.style.opacity = "1";
+    }
+  });
+}, edariakObserverOptions);
+
+edariakItems.forEach((item) => {
+  edariakObserver.observe(item);
+});
+
+const carouselRowEdariak = document.getElementById("bebidarow");
+let isDraggingEdariak = false;
+let startPosEdariak = 0;
+let currentTranslateEdariak = 0;
+let prevTranslateEdariak = 0;
+let animationIDEdariak;
+
+const itemCountEdariak = edariakItems.length;
+const itemWidthEdariak = edariakItems[0].getBoundingClientRect().width;
+
+const cloneFirstEdariak = edariakItems[0].cloneNode(true);
+const cloneLastEdariak = edariakItems[itemCountEdariak - 1].cloneNode(true);
+carouselRowEdariak.appendChild(cloneFirstEdariak);
+carouselRowEdariak.insertBefore(cloneLastEdariak, edariakItems[0]);
+
+const updatedItemsEdariak = document.querySelectorAll(".carousel-item .item");
+const updatedItemCountEdariak = updatedItemsEdariak.length;
+
+const setSliderPositionEdariak = () => {
+  carouselRowEdariak.style.transform = `translateX(${currentTranslateEdariak}px)`;
+};
+
+const animationEdariak = () => {
+  setSliderPositionEdariak();
+  if (isDraggingEdariak) requestAnimationFrame(animationEdariak);
+};
+
+carouselRowEdariak.addEventListener("mousedown", (event) => {
+  isDraggingEdariak = true;
+  startPosEdariak = event.pageX;
+  animationIDEdariak = requestAnimationFrame(animationEdariak);
+  carouselRowEdariak.style.cursor = "grabbing";
+});
+
+carouselRowEdariak.addEventListener("mousemove", (event) => {
+  if (isDraggingEdariak) {
+    const currentPositionEdariak = event.pageX;
+    const distanceMovedEdariak = currentPositionEdariak - startPosEdariak;
+    const speedFactorEdariak = 1;
+    currentTranslateEdariak = prevTranslateEdariak + distanceMovedEdariak * speedFactorEdariak;
+  }
+});
+
+carouselRowEdariak.addEventListener("mouseup", () => {
+  isDraggingEdariak = false;
+  cancelAnimationFrame(animationIDEdariak);
+  prevTranslateEdariak = currentTranslateEdariak;
+
+  if (currentTranslateEdariak < -((updatedItemCountEdariak - 1) * itemWidthEdariak)) {
+    currentTranslateEdariak = -itemWidthEdariak;
+  } else if (currentTranslateEdariak > 0) {
+    currentTranslateEdariak = -((updatedItemCountEdariak - 2) * itemWidthEdariak);
+  }
+
+  setSliderPositionEdariak();
+  carouselRowEdariak.style.cursor = "grab";
+});
+
+carouselRowEdariak.addEventListener("mouseleave", () => {
+  if (isDraggingEdariak) {
+    isDraggingEdariak = false;
+    cancelAnimationFrame(animationIDEdariak);
+    prevTranslateEdariak = currentTranslateEdariak;
+    carouselRowEdariak.style.cursor = "grab";
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  if (isDraggingEdariak) {
+    isDraggingEdariak = false;
+    cancelAnimationFrame(animationIDEdariak);
+    prevTranslateEdariak = currentTranslateEdariak;
+    carouselRowEdariak.style.cursor = "grab";
+  }
 });
 });
-  
+
+
 let quantity = 1;
 
 function changeQuantity(amount) {
@@ -128,6 +206,47 @@ function changeQuantity(amount) {
   if (quantity < 1) quantity = 1;
   document.getElementById("quantity").innerText = quantity;
 }
+document.addEventListener("DOMContentLoaded", loadProducts);
+
+async function openModal(
+  productName,
+  productDescription,
+  productPrice,
+  productImage,
+  productId
+) {
+  const response = await fetch(`/v1/product_alergens/${productId}/`);
+  const allergens = await response.json();
+
+  const allergensContainer = document.querySelector(".allergens");
+  allergensContainer.innerHTML = "";
+  allergensContainer.innerHTML = " </br>Alergenoak:";
+
+  if (allergens && allergens.length > 0) {
+    allergens.forEach((allergen) => {
+      const img = document.createElement("img");
+      img.src = `/static/resources/alergens/${allergen}.png`;
+      img.title = allergen;
+      allergensContainer.appendChild(img);
+    });
+  } else {
+    const noAllergens = document.createElement("p");
+    noAllergens.innerText = "Este producto no tiene alérgenos registrados.";
+    allergensContainer.appendChild(noAllergens);
+  }
+
+  document.getElementById("modalTitle").innerText = productName;
+  document.getElementById("modalDescription").innerText = productDescription;
+  document.getElementById("modalPrice").innerText = `${productPrice} €`;
+  document.getElementById("modalImg").src = productImage;
+
+  document.getElementById("productModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("productModal").style.display = "none";
+}
+
 function toggleHasierakoak() {
   const productContainer = document.getElementById("productContainer");
   const toggleArrow = document.getElementById("toggleArrow");
@@ -163,18 +282,15 @@ function toggleEdariak() {
   productContainer.classList.toggle("visible");
 
   toggleArrow.classList.toggle("rotated");
-  
 }
 
 async function loadProducts() {
   try {
-    console.log("Cargando productos...");
     const response = await fetch("/v1/products/");
     const products = await response.json();
-    console.log(products);
     const carouselRow = document.getElementById("hasierakoakrow");
     const burgerRow = document.getElementById("burgerrow");
-    const porstreRow = document.getElementById("postrerow");
+    const postrerow = document.getElementById("postrerow");
     const bebidaRow = document.getElementById("bebidarow");
 
     products.forEach((product) => {
@@ -205,7 +321,7 @@ async function loadProducts() {
       } else if (product.category.id == 2) {
         burgerRow.appendChild(item);
       } else if (product.category.id == 3) {
-        porstreRow.appendChild(item);
+        postrerow.appendChild(item);
       } else if (product.category.id == 4) {
         bebidaRow.appendChild(item);
       }
@@ -213,39 +329,4 @@ async function loadProducts() {
   } catch (error) {
     console.error("Error fetching products:", error);
   }
-}
-
-document.addEventListener("DOMContentLoaded", loadProducts);
-
-async function openModal(productName, productDescription, productPrice, productImage, productId) {
-  const response = await fetch(`/v1/product_alergens/${productId}/`);
-  const allergens = await response.json();
-
-  const allergensContainer = document.querySelector(".allergens");
-  allergensContainer.innerHTML = ''; 
-  allergensContainer.innerHTML =' </br>Alergenoak:';
-
-  if (allergens && allergens.length > 0) {
-    allergens.forEach(allergen => {
-      const img = document.createElement("img");
-      img.src = `/static/resources/alergens/${allergen}.png`;
-      img.title = allergen;   
-      allergensContainer.appendChild(img);
-    });
-  } else {
-    const noAllergens = document.createElement("p");
-    noAllergens.innerText = "Este producto no tiene alérgenos registrados.";
-    allergensContainer.appendChild(noAllergens);
-  }
-
-  document.getElementById("modalTitle").innerText = productName;
-  document.getElementById("modalDescription").innerText = productDescription;
-  document.getElementById("modalPrice").innerText = `${productPrice} €`;
-  document.getElementById("modalImg").src = productImage;
-  
-  document.getElementById("productModal").style.display = "block";
-}
-
-function closeModal() {
-  document.getElementById("productModal").style.display = "none";
 }
