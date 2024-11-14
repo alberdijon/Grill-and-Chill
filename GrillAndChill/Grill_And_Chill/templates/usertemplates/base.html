@@ -29,9 +29,7 @@
         <a href="{% url 'clientside_perfil' %}">
           <img src="{% static 'resources/Profile.png' %}" alt="Perfil de Usuario">
         </a>
-
       {% else %}
-
         <a href="{% url 'clientside_login' %}">
           <img src="{% static 'resources/Profile.png' %}" alt="Perfil de Usuario">
         </a>
@@ -39,19 +37,35 @@
     </div>
   </header>
 
+  {% if request.session.user_id %}
+  <div id="user-id" type="hidden" data-user-id="{{ request.session.user_id }}"></div>
+  <!-- Carrito con productos para usuarios registrados -->
   <div class="cart" id="cart">
     <div class="cart-header">
-        <h2>Tu pedido</h2>
-        <span class="close-btn" onclick="toggleCart()">×</span>
+      <h2>Tu pedido</h2>
+      <span class="close-btn" onclick="toggleCart()">×</span>
     </div>
-    <p class="empty-message">Tu carrito está vacío</p>
-    <div class="cart-items"></div>
+    <div class="cart-items">
+      <p class="empty-message">Tu carrito está vacío</p>
+    </div>
     <div class="cart-total">
-        <span>Importe total:</span>
-        <span id="total-price">0,00€</span>
+      <span>Importe total:</span>
+      <span id="total-price">0,00€</span>
     </div>
     <button class="checkout-button">Ordaindu Orain</button>
-</div>
+  </div>
+  {% else %}
+  <!-- Mensaje de inicio de sesión para usuarios no registrados -->
+  <div class="cart" id="cart">
+    <div class="cart-header">
+      <h2>Carrito</h2>
+      <span class="close-btn" onclick="toggleCart()">×</span>
+    </div>
+    <p class="login-message">
+      Debes <a href="{% url 'clientside_login' %}">iniciar sesión</a> para añadir productos al carrito.
+    </p>
+  </div>
+  {% endif %}
 
   {% block content %} {% endblock %}
 
@@ -69,6 +83,7 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
   <script src="{% static 'js/ScriptIndex.js' %}"></script>
   <script src="{% static 'js/ScriptSaskia.js' %}"></script>

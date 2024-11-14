@@ -8,7 +8,6 @@
 
   <section class="main">
     <div class="hasierakoak">
-      
       <h2 onclick="toggleHasierakoak()">
         HASIERAKOAK
         <span class="arrow" id="toggleArrow">▼</span>
@@ -46,7 +45,6 @@
       </div>
     </div>
     <div class="postreak">
-
       <h2 onclick="toggleProducts()">
         POSTREAK <span class="arrow" id="toggleArrow">▼</span>
       </h2>
@@ -65,7 +63,6 @@
       </div>
     </div>
     <div class="edariak">
-
       <h2 onclick="toggleProducts()">
         EDARIAK <span class="arrow" id="toggleArrow">▼</span>
       </h2>
@@ -111,7 +108,23 @@
       <button onclick="changeQuantity(1)">+</button>
     </div>
     <p id="modalPrice"></p>
-    <button class="add-to-cart" id="add-to-cart" onclick="addToCartFromModal()">SASKIRA GEHITU</button>
+      {% if request.session.user_id %}
+      <form action="{% url 'add_to_cart' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="user_id" value="{{ request.session.user_id }}" />
+        <input type="hidden" name="product_id" id="product_id" />
+        <input type="hidden" name="quantity" id="quantity-input" value="1" />
+        <button type="submit" class="add-to-cart" id="add-to-cart">
+          SASKIRA GEHITU
+        </button>
+      </form>
+      </a>
+    {% else %}
+      <button href="{% url 'clientside_login' %}">
+      </a>
+    {% endif %}
+    
   </div>
 </div>
+
 {% endblock %}
