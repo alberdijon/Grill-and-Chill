@@ -66,7 +66,6 @@ nav a {
 .banner h1 {
   color: #fcea5e;
   font-size: 5em;
-  font-family: "Press Start 2P", serif;
   margin-top: 20px;
   padding-bottom: 20px;
 }
@@ -96,7 +95,6 @@ nav a {
 .textua {
   color: #242342;
   font-size: 1em;
-  font-family: "Press Start 2P", serif;
   margin-top: 20px;
   padding-bottom: 20px;
   text-align: left;
@@ -197,7 +195,6 @@ footer address {
 .edariak {
   color: #242342;
   font-size: 3em;
-  font-family: "Press Start 2P", serif;
   margin-top: 20px;
   padding-bottom: 20px;
   
@@ -291,7 +288,6 @@ div#carousel1 {
   transition: transform 0.3s ease;
   padding: 20px;
   color: #fcea5e;
-  font-family: "Press Start 2P", serif;
 }
 .cart.open {
   transform: translateX(0);
@@ -358,7 +354,6 @@ div#carousel1 {
   border: 1px solid #888;
   text-align: center;
   border-radius: 10px;
-  font-family: "Press Start 2P", serif;
   width: 300px;
   max-width: 90%;
   margin: auto;
@@ -415,7 +410,6 @@ img#modalImg{
   margin-top: 15px;
   cursor: pointer;
   border: none;
-  font-family: "Press Start 2P", serif;
 }
 .form-container {
   display: flex;
@@ -430,7 +424,6 @@ img#modalImg{
   margin: 0 auto;
   color: #ffd700;
   text-align: center;
-  font-family: "Press Start 2P", sans-serif;
   align-items: center;
 }
 form {
@@ -475,7 +468,6 @@ a{
   border-radius: 5px;
   width: 100%;
   font-size: 14px;
-  font-family: "Press Start 2P", sans-serif;
   height: 45px;
   padding: 10px;
 }
@@ -496,6 +488,16 @@ a{
 }
 .submit-btn:hover {
   background-color: #a02d67;
+}
+.logout-btn{
+    padding: 10px;
+    background-color: #622455;
+    color: #fcea5e;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    height: 20%;
 }
 @media (max-width: 858px) {
   

@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  // Hanburgesak Section (ya configurado)
   const hanburgesakSection = document.querySelector(".hanburgesak");
   const hanburgesakItems = document.querySelectorAll(".carousel-item .item");
 
@@ -205,6 +204,9 @@ function changeQuantity(amount) {
   quantity += amount;
   if (quantity < 1) quantity = 1;
   document.getElementById("quantity").innerText = quantity;
+  
+  document.getElementById("quantity-input").innerText = quantity;
+  document.getElementById("quantity-input").value = quantity;
 }
 document.addEventListener("DOMContentLoaded", loadProducts);
 
@@ -240,6 +242,7 @@ async function openModal(
   document.getElementById("modalPrice").innerText = `${productPrice} €`;
   document.getElementById("modalImg").src = productImage;
 
+  document.getElementById("product_id").value = productId;
   document.getElementById("productModal").style.display = "block";
 }
 

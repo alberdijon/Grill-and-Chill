@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 <div class="form-container">
-  <h2>Kaixo {{ user.name }} {{ user.surname }}</h2>  <!-- Usando el nombre del usuario -->
+  <h2>Kaixo {{ user.name }} {{ user.surname }}</h2>  
   <div class="form-row">
     <div class="form-input">
       <label for="email">Email:</label>
@@ -11,14 +11,14 @@
     </div>
     <div class="form-input">
       <label for="phone">Telefonoa:</label>
-      <p id="phone">{{ user.profile.phone }}</p>  <!-- Si usas un perfil con teléfono -->
+      <p id="phone">{{ user.profile.phone }}</p>  
     </div>
   </div>
 
   <div class="form-row">
     <div class="form-input">
       <label for="address">Helbidea:</label>
-      <p id="address">{{ user.profile.address }}</p>  <!-- O el campo de dirección en el perfil -->
+      <p id="address">{{ user.profile.address }}</p>
     </div>
     <div class="form-input">
       <label for="password">Pasahitza:</label>
@@ -26,14 +26,12 @@
     </div>
   </div>
 
-  <!-- Botón de Logout -->
   <form action="{% url 'clientside_logout' %}" method="post">
     {% csrf_token %}
     <button type="submit" class="logout-btn">Deslogearse</button>
   </form>
 </div>
 
-<!-- Pasar el user_id usando un atributo data- -->
 <div id="user-data" data-user-id="{{ user.id }}"></div>
 
 {% block extra_js %}

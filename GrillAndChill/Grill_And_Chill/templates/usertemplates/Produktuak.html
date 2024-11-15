@@ -79,6 +79,7 @@
     <p id="modalDescription"></p>
     <div class="allergens">
       <p>ALERGENOAK:</p>
+      
     </div>
     <div class="quantity-control">
       <button onclick="changeQuantity(-1)">-</button>
@@ -86,7 +87,22 @@
       <button onclick="changeQuantity(1)">+</button>
     </div>
     <p id="modalPrice"></p>
-    <button class="add-to-cart" id="add-to-cart" onclick="addToCartFromModal()">SASKIRA GEHITU</button>
+      {% if request.session.user_id %}
+      <form action="{% url 'add_to_cart' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="user_id" value="{{ request.session.user_id }}" />
+        <input type="hidden" name="product_id" id="product_id" />
+        <input type="hidden" name="quantity" id="quantity-input" value="1" />
+        <button type="submit" class="add-to-cart" id="add-to-cart">
+          SASKIRA GEHITU
+        </button>
+      </form>
+      </a>
+    {% else %}
+      <button href="{% url 'clientside_login' %}">
+      </a>
+    {% endif %}
+    
   </div>
 </div>
 
