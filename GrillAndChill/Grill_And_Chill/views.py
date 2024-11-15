@@ -1,18 +1,21 @@
 from django.contrib  import messages
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import logout, login
 from django.shortcuts import render, get_object_or_404 , redirect
 import logging
-from .models import User, Product, Order , Product_Order
+from .models import User, Product, Order , Product_Order, Product_Alergen
 from django.utils import timezone
 from django.db.models import Count
 from datetime import timedelta
 from collections import defaultdict
 from .forms import UserForm , ProductForm , OrderForm, LoginForm
-from .serializers import  ProductSerializer
-from django.http import Http404
+from .serializers import ProductAlergenDescriptionSerializer, UserSerializer, CategorySerializer, AlergenSerializer, ProductSerializer, ProductAlergenSerializer, OrderSerializer, ProductOrderSerializer
+
+from django.http import Http404, JsonResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.exceptions import NotFound
 
 def monthly_revenue(request):
     # Your logic for the view goes here.
@@ -242,9 +245,6 @@ def clientside_index(request):
 def clientside_produktuak(request):
     return render(request, 'usertemplates/produktuak.html')
 
-def clientside_saskia(request):
-    return render(request, 'usertemplates/saskia.html')
-
 def clientside_kontaktuak(request):
     return render(request, 'usertemplates/kontaktuak.html')
 
@@ -259,6 +259,7 @@ def clientside_register(request):
             print(form.data)
 
             if form.is_valid():
+              
                 user = form.save(commit=False)
                 
                
@@ -275,6 +276,7 @@ def clientside_register(request):
                     'form': form,
                     'error': 'Unable to create your account. Please check the form.'  
                 })
+
 
         else:
             messages.error(request, "A user with this email already exists.")
@@ -297,7 +299,8 @@ def clientside_login(request):
 
             if usuario:
                 if password == usuario.password:
-                    return redirect('clientside_index')
+                    request.session['user_id'] = usuario.id 
+                    return redirect('clientside_main')
                 else:
                     messages.error(request, "La contraseña es incorrecta.")
             else:
@@ -308,6 +311,137 @@ def clientside_login(request):
         form = LoginForm()
 
     return render(request, 'usertemplates/logIn.html', {'form': form})
+
+def clientside_logout(request):
+    logout(request)
+    return redirect('clientside_main')
+
+def add_to_cart(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity'))
+
+        if not product_id:
+            print("Error: Product ID is empty or not received.")
+            return redirect('clientside_produktuak')
+        else:
+            print(f"Product ID received: {product_id}")
+
+        product = Product.objects.get(id=product_id)
+        user = User.objects.get(id=user_id)
+
+        price = product.price * quantity
+        direccion = user.direction
+
+
+        try:
+            order = Order.objects.get(user_Id=user, ended=False)
+
+            order.price += price
+            order.ordered += quantity  # Sumar la cantidad de productos
+            order.save()  # Guardamos los cambios en la orden existente
+
+            for _ in range(quantity):
+                product_order = Product_Order(
+                    products_Id=product,
+                    order_Id=order  # Asignamos la orden existente
+                )
+                product_order.save()
+
+            print("Producto añadido a la orden existente.")
+        except Order.DoesNotExist:
+            # Si no existe una orden abierta, creamos una nueva
+            print("Creando nueva orden.")
+            order = Order(
+                user_Id=user,
+                price=price,
+                ordered="0",
+                direction=direccion,
+                ended=False 
+            )
+            order.save() 
+
+            for _ in range(quantity):
+                product_order = Product_Order(
+                    products_Id=product,
+                    order_Id=order 
+                )
+                product_order.save()
+
+        return redirect('clientside_produktuak')
+
+    return redirect('clientside_produktuak')
+
+
+
+def update_cart(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        product_id = request.POST.get('product_id')
+        quantity_change = int(request.POST.get('quantity_change'))  # Este valor puede ser -1 o 1
+        action = request.POST.get('action')  # 'update' para actualizar cantidad, 'delete' para eliminar producto
+
+        if not user_id or not product_id or not action:
+            return JsonResponse({"error": "Missing required parameters."}, status=400)
+
+        try:
+            user = User.objects.get(id=user_id)
+            product = Product.objects.get(id=product_id)
+            order = Order.objects.get(user_Id=user, ended=False)
+        except (User.DoesNotExist, Product.DoesNotExist, Order.DoesNotExist):
+            return JsonResponse({"error": "User, product or order not found."}, status=404)
+
+        # Verificar si el producto ya está en el carrito
+        try:
+            product_order = Product_Order.objects.get(order_Id=order, products_Id=product)
+        except Product_Order.DoesNotExist:
+            return JsonResponse({"error": "Product not found in the cart."}, status=404)
+
+        if action == 'update':
+            new_quantity = product_order.quantity + quantity_change
+            if new_quantity <= 0:
+                return JsonResponse({"error": "Quantity must be greater than zero."}, status=400)
+            
+            product_order.quantity = new_quantity
+            product_order.save()
+
+            # Actualizar el precio total de la orden
+            price_change = product.price * quantity_change
+            order.price += price_change
+            order.ordered += quantity_change
+            order.save()
+
+            return JsonResponse({"message": "Quantity updated successfully."}, status=200)
+
+        elif action == 'delete':
+            # Eliminar el producto del carrito
+            order.price -= product_order.quantity * product.price
+            order.ordered -= product_order.quantity
+            order.save()
+
+            product_order.delete()
+
+            return JsonResponse({"message": "Product removed from cart."}, status=200)
+
+        else:
+            return JsonResponse({"error": "Invalid action specified."}, status=400)
+
+    return JsonResponse({"error": "Invalid request method."}, status=400)
+
+
+
+def clientside_perfil(request):
+    # Obtén el usuario actual usando el ID almacenado en la sesión
+    user_id = request.session.get('user_id')
+    if not user_id:
+        # Si no hay un ID de usuario en la sesión, redirige a la página de inicio de sesión
+        return redirect('clientside_login')
+    
+    # Obtén el objeto User usando el ID
+    user = get_object_or_404(User, id=user_id)
+    return render(request, 'usertemplates/Perfil.html', {'user': user})
+
 
 logger = logging.getLogger(__name__)  
 
@@ -338,6 +472,150 @@ class ProductAPIViewDetail(APIView):
         product = self.get_object(pk)
         serializer = ProductSerializer(product)
         return Response(serializer.data)
+    
+
+
+class ProductAlergenAPIView(APIView):
+    
+    def get(self, request, format=None):
+        product_alergens = Product_Alergen.objects.all()
+        serializer = ProductAlergenSerializer(product_alergens, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ProductAlergenSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductAlergenAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return Product_Alergen.objects.get(pk=pk)
+        except Product_Alergen.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+            product_alergens = Product_Alergen.objects.filter(products_Id=pk)
+            
+            if not product_alergens:
+                return Response({"detail": "No allergens found for this product."}, status=status.HTTP_404_NOT_FOUND)
+            
+            serializer = ProductAlergenDescriptionSerializer(product_alergens, many=True)
+            return Response([item['alergens_Id'] for item in serializer.data])
+
+
+    def put(self, request, pk, format=None):
+        product_alergen = self.get_object(pk)
+        serializer = ProductAlergenSerializer(product_alergen, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        product_alergen = self.get_object(pk)
+        product_alergen.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+
+class UserAPIViewDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        user = self.get_object(pk)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+class UserCartAPIView(APIView):
+    
+    def get(self, request, user_id, format=None):
+        try:
+            # Obtener la orden activa del usuario
+            order = Order.objects.get(user_Id_id=user_id, ended=False)
+        except Order.DoesNotExist:
+            return Response({"detail": "No active order found for this user."}, status=404)
+
+        # Obtener los productos de esa orden
+        product_orders = Product_Order.objects.filter(order_Id=order)
+        serializer = ProductOrderSerializer(product_orders, many=True)
+        return Response({"order": order.id, "price": order.price, "products": serializer.data})
+    
+
+class UpdateProductQuantityAPIView(APIView):
+    
+    def put(self, request, user_id, product_id, format=None):
+        try:
+            # Buscar la orden activa del usuario
+                order = Order.objects.get(user_Id_id=user_id, ended=False)
+        except Order.DoesNotExist:
+            return Response({"detail": "No active order found for this user."}, status=404)
+        
+        try:
+            # Buscar el producto en el carrito del usuario
+            product_order = Product_Order.objects.get(order=order, product_id=product_id)
+        except Product_Order.DoesNotExist:
+            return Response({"detail": "Product not found in the cart."}, status=404)
+        
+        # Actualizar la cantidad del producto
+        new_quantity = request.data.get("quantity")
+        if new_quantity is None or new_quantity <= 0:
+            return Response({"detail": "Invalid quantity."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        product_order.quantity = new_quantity
+        product_order.save()
+        
+        return Response({"message": "Quantity updated successfully."}, status=status.HTTP_200_OK)
+    
+
+
+
+class DeleteProductFromCartAPIView(APIView):
+    
+    def delete(self, request, user_id, product_id, format=None):
+        try:
+            # Buscar la orden activa del usuario
+            order = Order.objects.get(user_Id_id=user_id, ended=False)
+        except Order.DoesNotExist:
+            return Response({"detail": "No active order found for this user."}, status=404)
+        
+        try:
+            # Buscar el producto en el carrito del usuario
+            product_order = Product_Order.objects.get(order=order, product_id=product_id)
+        except Product_Order.DoesNotExist:
+            return Response({"detail": "Product not found in the cart."}, status=404)
+        
+        # Eliminar el producto del carrito
+        product_order.delete()
+        
+        return Response({"message": "Product removed from cart."}, status=200)
+    
+
+
 
     # def put(self, request, pk, format=None):
     #     product = self.get_object(pk)
@@ -476,46 +754,7 @@ class AlergenAPIViewDetail(APIView):
         alergen = self.get_object(pk)
         alergen.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-class ProductAlergenAPIView(APIView):
-    
-    def get(self, request, format=None):
-        product_alergens = Product_Alergen.objects.all()
-        serializer = ProductAlergenSerializer(product_alergens, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = ProductAlergenSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ProductAlergenAPIViewDetail(APIView):
-    
-    def get_object(self, pk):
-        try:
-            return Product_Alergen.objects.get(pk=pk)
-        except Product_Alergen.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        product_alergen = self.get_object(pk)
-        serializer = ProductAlergenSerializer(product_alergen)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        product_alergen = self.get_object(pk)
-        serializer = ProductAlergenSerializer(product_alergen, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        product_alergen = self.get_object(pk)
-        product_alergen.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        
 
 
 class OrderAPIView(APIView):

@@ -3,7 +3,6 @@
   <h2>ERREGISTRATU</h2>
   <form action="{% url 'clientside_register' %}" method="post">
     {% csrf_token %}
-    <!-- Fondo de la página-->
 
     {% if messages %}
     <div class="alert alert-danger">
