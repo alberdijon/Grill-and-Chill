@@ -280,7 +280,7 @@ div#carousel1 {
   position: fixed;
   right: 0;
   top: 0;
-  width: 240px;
+  width: 30%;
   height: 100vh;
   background-color: #242342;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
