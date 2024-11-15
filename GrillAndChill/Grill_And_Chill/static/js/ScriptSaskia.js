@@ -30,17 +30,14 @@ async function loadCartProducts() {
         const existingCartItem = document.getElementById(`product-${productId}`);
 
         if (existingCartItem) {
-          // Si el producto ya está en el carrito, actualizar la cantidad
           const quantityText = existingCartItem.querySelector(`#quantity-text-${productId}`);
           const currentQuantity = parseInt(quantityText.innerText.split(": ")[1]);
           quantityText.innerText = `Cantidad: ${currentQuantity + 1}`;
         } else {
-          // Si el producto no está en el carrito, crear una nueva tarjeta
           const cartItem = document.createElement("div");
           cartItem.className = "cart-item";
           cartItem.id = `product-${productId}`;
 
-          // Columna izquierda: Imagen del producto
           const imgContainer = document.createElement("div");
           imgContainer.className = "cart-item-img";
           const img = document.createElement("img");
@@ -50,36 +47,29 @@ async function loadCartProducts() {
           img.style.height = "50px";
           imgContainer.appendChild(img);
 
-          // Columna derecha: Nombre y botones de cantidad
           const rightColumn = document.createElement("div");
           rightColumn.className = "cart-item-details";
 
-          // Fila superior: Nombre del producto
           const productName = document.createElement("div");
           productName.className = "product-name";
           productName.innerText = product.products_Id.name;
           rightColumn.appendChild(productName);
 
-          // Fila inferior: Control de cantidad
           const quantityControl = document.createElement("div");
           quantityControl.className = "quantity-control";
 
-          // Botón de restar cantidad
           const decreaseButton = document.createElement("button");
           decreaseButton.innerText = "-";
           decreaseButton.onclick = () => changeQuantityCart(productId, -1);
 
-          // Texto con la cantidad actual, inicializada en 1
           const quantityText = document.createElement("span");
           quantityText.innerText = `Cantidad: 1`;
           quantityText.id = `quantity-text-${productId}`;
 
-          // Botón de sumar cantidad
           const increaseButton = document.createElement("button");
           increaseButton.innerText = "+";
           increaseButton.onclick = () => changeQuantityCart(productId, 1);
 
-          // Icono de eliminar producto
           const deleteIcon = document.createElement("img");
           deleteIcon.src = "{% static 'resources/delete-icon.png' %}";
           deleteIcon.alt = "Eliminar producto";
@@ -93,7 +83,6 @@ async function loadCartProducts() {
 
           rightColumn.appendChild(quantityControl);
 
-          // Añadir columnas al item del carrito
           cartItem.appendChild(imgContainer);
           cartItem.appendChild(rightColumn);
 
@@ -101,7 +90,6 @@ async function loadCartProducts() {
         }
       });
     } else {
-      // Si no hay orden activa, mostrar mensaje vacío
       cartItemsContainer.innerHTML = "<p>Tu carrito está vacío</p>";
     }
   } catch (error) {
@@ -128,18 +116,16 @@ function changeQuantityCart(productId, quantityChange) {
   .then(response => response.json())
   .then(data => {
       if (data.message) {
-          console.log(data.message); // Muestra el mensaje de éxito
-          loadCartProducts();  // Recargar los productos del carrito
+          console.log(data.message); 
+          loadCartProducts();
       } else {
-          alert(data.error); // Mostrar error si ocurre algo
+          alert(data.error);
       }
   });
 }
 
 
 
-
-// Función para eliminar un producto del carrito
 async function deleteProductFromCart(productId) {
   try {
     const userId = "{{ request.session.user_id }}";
@@ -147,11 +133,9 @@ async function deleteProductFromCart(productId) {
     const data = await response.json();
 
     if (data.success) {
-      // Eliminar el producto del carrito en la UI
       const cartItem = document.getElementById(`product-${productId}`);
       cartItem.remove();
 
-      // Actualizar el precio total
       const totalPriceElement = document.querySelector("#total-price");
       totalPriceElement.innerText = `${data.newTotalPrice.toFixed(2)}€`;
     } else {

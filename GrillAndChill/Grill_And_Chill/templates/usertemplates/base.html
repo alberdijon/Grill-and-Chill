@@ -39,30 +39,28 @@
 
   {% if request.session.user_id %}
   <div id="user-id" type="hidden" data-user-id="{{ request.session.user_id }}"></div>
-  <!-- Carrito con productos para usuarios registrados -->
   <div class="cart" id="cart">
     <div class="cart-header">
-      <h2>Tu pedido</h2>
+      <h2>Zure eskaera</h2>
       <span class="close-btn" onclick="toggleCart()">×</span>
     </div>
     <div class="cart-items">
-      <p class="empty-message">Tu carrito está vacío</p>
+      <p class="empty-message">Saskia hutsik dago</p>
     </div>
     <div class="cart-total">
-      <span>Importe total:</span>
+      <span>Importe totala:</span>
       <span id="total-price">0,00€</span>
     </div>
     <button class="checkout-button">Ordaindu Orain</button>
   </div>
   {% else %}
-  <!-- Mensaje de inicio de sesión para usuarios no registrados -->
   <div class="cart" id="cart">
     <div class="cart-header">
       <h2>Carrito</h2>
       <span class="close-btn" onclick="toggleCart()">×</span>
     </div>
     <p class="login-message">
-      Debes <a href="{% url 'clientside_login' %}">iniciar sesión</a> para añadir productos al carrito.
+      <a href="{% url 'clientside_login' %}">Saioa hasi</a> behar duzu produktuak saskira gehitzeko.
     </p>
   </div>
   {% endif %}
@@ -83,7 +81,6 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
   <script src="{% static 'js/ScriptIndex.js' %}"></script>
   <script src="{% static 'js/ScriptSaskia.js' %}"></script>

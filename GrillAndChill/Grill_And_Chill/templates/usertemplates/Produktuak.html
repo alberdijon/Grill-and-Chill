@@ -4,82 +4,70 @@
     <div class="banner">
       <h1>Produktuak</h1>
     </div>
-  </section>
-
-  <section class="main">
-    <div class="hasierakoak">
-      <h2 onclick="toggleHasierakoak()">
-        HASIERAKOAK
-        <span class="arrow" id="toggleArrow">▼</span>
-      </h2>
-      <div id="productContainer" class="visible">
-        <div
-          id="carouselExampleSlidesOnly"
-          class="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="d-flex image-row" id="harierakoakrow"></div>
+    <div class="container">
+      <div class="hasierakoak">
+        <h2 onclick="toggleHasierakoak()">
+          HASIERAKOAK
+          <span class="arrow" id="toggleArrow">▼</span>
+        </h2>
+        <div id="productContainer" class="visible">
+          <div id="carousel1" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex image-row" id="hasierakoakrow"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="hasierakoak">
-      <h2 onclick="toggleProducts()">
-        HANBURGUESAK <span class="arrow" id="toggleArrow">▼</span>
-      </h2>
-      <div id="productContainer" class="visible">
-        <div
-          id="carouselExampleSlidesOnly"
-          class="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="d-flex image-row" id="burgerrow"></div>
+      <div class="hanburgesak">
+        <h2 onclick="toggleHanburgesak()">
+          HANBURGESAK <span class="arrow" id="toggleArrow2">▼</span>
+        </h2>
+        <div id="productContainer2" class="visible">
+          <div id="carousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex image-row" id="burgerrow">
+                  <div class="item text-center">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="postreak">
-      <h2 onclick="toggleProducts()">
-        POSTREAK <span class="arrow" id="toggleArrow">▼</span>
-      </h2>
-      <div id="productContainer" class="visible">
-        <div
-          id="carouselExampleSlidesOnly"
-          class="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="d-flex image-row" id="postrerow"></div>
+      <div class="postreak">
+        <h2 onclick="togglePostreak()">
+          POSTREAK <span class="arrow" id="toggleArrow3">▼</span>
+        </h2>
+        <div id="productContainer3" class="visible">
+          <div id="carousel3" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex image-row" id="postrerow"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="edariak">
-      <h2 onclick="toggleProducts()">
-        EDARIAK <span class="arrow" id="toggleArrow">▼</span>
-      </h2>
-      <div id="productContainer" class="visible">
-        <div
-          id="carouselExampleSlidesOnly"
-          class="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="d-flex image-row" id="bebidarow"></div>
+      <div class="edariak">
+        <h2 onclick="toggleEdariak()">
+          EDARIAK <span class="arrow" id="toggleArrow4">▼</span>
+        </h2>
+        <div id="productContainer4" class="visible">
+          <div id="carousel4" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex image-row" id="bebidarow">
+                  <div class="item text-center">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
   </section>
 </div>
 
@@ -91,16 +79,7 @@
     <p id="modalDescription"></p>
     <div class="allergens">
       <p>ALERGENOAK:</p>
-      <img
-        src="{% static 'resources/logo huevos 1.png' %}"
-        alt="Huevo"
-        title="Huevo"
-      />
-      <img
-        src="{% static 'resources/logo leche 1.png' %}"
-        alt="Lactosa"
-        title="Lactosa"
-      />
+      
     </div>
     <div class="quantity-control">
       <button onclick="changeQuantity(-1)">-</button>

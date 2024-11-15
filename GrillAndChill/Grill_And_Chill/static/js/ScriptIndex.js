@@ -1,24 +1,20 @@
 $(document).ready(function(){
     $('a.nav-link').hover(
         function() {
-            $(this).animate({ fontSize: '1.5em' }, 500);
+            $(this).animate({ fontSize: '1.4em' }, 500);
         }, 
         function() {
             $(this).animate({ fontSize: '1em' }, 500);
         }
     );
-    const scrollText = document.querySelector(".scroll-text");
+    const gif = $('.products img');
 
-    function handleScroll() {
-        const textPosition = scrollText.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
-
-        // Verifica si el elemento está en la pantalla
-        if (textPosition < screenPosition) {
-            scrollText.classList.add("show");
-            window.removeEventListener("scroll", handleScroll); // Remueve el event listener después de mostrar el texto
-        }
-    }
-
-    window.addEventListener("scroll", handleScroll);
+    $(window).on('scroll', function() {
+        const scrollPosition = $(window).scrollTop();
+        
+        const moveAmount = scrollPosition * 0.3; 
+        gif.css({
+            transform: `translateX(${moveAmount}px)` 
+        });
+    });
 })

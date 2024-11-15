@@ -13,10 +13,9 @@ $(document).ready(function(){
         const textPosition = scrollText.getBoundingClientRect().top;
         const screenPosition = window.innerHeight / 1.3;
 
-        // Verifica si el elemento está en la pantalla
         if (textPosition < screenPosition) {
             scrollText.classList.add("show");
-            window.removeEventListener("scroll", handleScroll); // Remueve el event listener después de mostrar el texto
+            window.removeEventListener("scroll", handleScroll);
         }
     }
 
