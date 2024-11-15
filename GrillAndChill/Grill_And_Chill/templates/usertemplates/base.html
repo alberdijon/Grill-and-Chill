@@ -27,6 +27,36 @@
     </div>
   </header>
 
+<<<<<<< Updated upstream
+=======
+  {% if request.session.user_id %}
+  <div id="user-id" type="hidden" data-user-id="{{ request.session.user_id }}"></div>
+  <div class="cart" id="cart">
+    <div class="cart-header">
+      <h2>Zure eskaera</h2>
+      <span class="close-btn" onclick="toggleCart()">×</span>
+    </div>
+    <div class="cart-items">
+    </div>
+    <div class="cart-total">
+      <span>Importe totala:</span>
+      <span id="total-price">0,00€</span>
+    </div>
+    <button class="checkout-button">Ordaindu Orain</button>
+  </div>
+  {% else %}
+  <div class="cart" id="cart">
+    <div class="cart-header">
+      <h2>Carrito</h2>
+      <span class="close-btn" onclick="toggleCart()">×</span>
+    </div>
+    <p class="login-message">
+      <a href="{% url 'clientside_login' %}">Saioa hasi</a> behar duzu produktuak saskira gehitzeko.
+    </p>
+  </div>
+  {% endif %}
+
+>>>>>>> Stashed changes
   {% block content %} {% endblock %}
 
   <footer>
