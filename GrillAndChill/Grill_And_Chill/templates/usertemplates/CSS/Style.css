@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Press Start 2P", serif;
+}
+
+body {
+  background-image: url("../img/fondo 1.png");
+  background-repeat: repeat;
+}
+
+.gorputza {
+  width: 50%;
+  margin: auto;
+  background-color: #e7b86b;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #622455;
+  padding: 20px;
+  width: 50%;
+  height: 100px;  
+  margin: auto;
+}
+
+header .logo img {
+  width: 100px;
+  height: auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 200px;
+  color: #fcea5e;
+  font-weight: bold;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fcea5e;
+  font-weight: bold;
+}
+
+.icons img {
+  width: 50px;
+  margin-left: 15px;
+}
+
+.main .banner {
+  text-align: center;
+  padding: 50px;
+  background-color: #e7b86b;
+  color: #fff;
+  padding-top: 100px;
+}
+
+.banner h1 {
+  color: #242342;
+  font-size: 5em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.karratua {
+  background-color: rgb(255, 0, 191);
+  width: 40%;
+  margin-left: 30px;
+  max-width: 500px;
+  margin-right: 20px;
+  color: #242342;
+}
+
+.karratua2 {
+  background-color: rgb(255, 0, 191);
+  width: 40%;
+  max-width: 500px;
+  margin-right: 20px;
+  color: #242342;
+  margin-left: auto;
+}
+
+.textua {
+  color: #242342;
+  font-size: 1em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+.about {
+  padding: 40px;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #242342;
+}
+
+.about .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.about .content p {
+  flex: 1;
+  max-width: 500px;
+  margin-right: 20px;
+  color: #242342;
+}
+
+.about .content img {
+  width: 500px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.products {
+  padding: 40px;
+  text-align: center;
+}
+
+.products h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #242342;
+}
+
+.products .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.products .content img {
+  width: 500px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.products .content p {
+  flex: 1;
+  max-width: 500px;
+  color: #242342;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  background-color: #622455;
+  color: #fcea5e;
+}
+
+footer address {
+  text-align: center;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+}
+
+.Grill p {
+  text-align: right;
+}
+
+.social img {
+  width: 30px;
+  height: auto;
+}
+
+.scroll-text {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.5s ease;
+}
+
+.scroll-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hasierakoak {
+  color: #242342;
+  font-size: 3em;
+  font-family: "Press Start 2P", serif;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.hasierakoak h2 {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  color: #242342;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.carousel-inner {
+  overflow: hidden; /* Oculta el contenido que desborda */
+}
+
+.carousel-item {
+  display: flex; /* Asegúrate de que los elementos estén en fila */
+  transition: transform 0.5s ease; /* Añade suavidad a la transición */
+}
+
+.item {
+  flex: 0 0 auto; /* Asegúrate de que los elementos no se estiren */
+}
+
+
+.carousel-img {
+  width: 100%; /* Asegúrate de que las imágenes ocupen todo el ancho de su contenedor */
+  height: auto; /* Mantén la relación de aspecto */
+  padding: 20px;
+}
+
+.item img {
+  width: 100%; /* Asegura que la imagen ocupe el ancho del contenedor */
+  height: auto; 
+}
+
+.item p {
+  margin-top: 5px; 
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+}
