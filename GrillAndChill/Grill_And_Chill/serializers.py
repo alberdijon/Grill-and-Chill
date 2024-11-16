@@ -22,6 +22,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+        
 
 class ProductAlergenSerializer(serializers.ModelSerializer):
     products_Id = ProductSerializer()  
@@ -31,13 +32,6 @@ class ProductAlergenSerializer(serializers.ModelSerializer):
         model = Product_Alergen
         fields = '__all__'
 
-class OrderSerializer(serializers.ModelSerializer):
-    user_Id = UserSerializer() 
-
-    class Meta:
-        model = Order
-        fields = '__all__'
-
 class ProductOrderSerializer(serializers.ModelSerializer):
     products_Id = ProductSerializer()  
     order_Id = OrderSerializer()        
@@ -45,3 +39,11 @@ class ProductOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product_Order
         fields = '__all__'
+
+
+class ProductAlergenDescriptionSerializer(serializers.ModelSerializer):
+    alergens_Id = serializers.CharField(source='alergens_Id.description')
+
+    class Meta:
+        model = Product_Alergen
+        fields = ['alergens_Id']

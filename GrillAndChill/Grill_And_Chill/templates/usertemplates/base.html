@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grill & Chill</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/Style.css' %}" />
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="{% static 'resources/LogoJweby.png' %}" alt="Grill & Chill Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a class="nav-link" href="{% url 'clientside_main' %}">Orri Nagusia</a></li>
+        <li><a class="nav-link" href="{% url 'clientside_produktuak' %}">Produktuak</a></li>
+        <li><a class="nav-link" href="{% url 'clientside_kontaktuak' %}">Kontaktuak</a></li>
+      </ul>
+    </nav>
+    <div class="icons">
+      <a onclick="toggleCart()" style="cursor:pointer;">
+        <img src="{% static 'resources/Saskia.png' %}" alt="Saskia">
+      </a>
+      {% if request.session.user_id %}
+        <a href="{% url 'clientside_perfil' %}">
+          <img src="{% static 'resources/Profile.png' %}" alt="Perfil de Usuario">
+        </a>
+      {% else %}
+        <a href="{% url 'clientside_login' %}">
+          <img src="{% static 'resources/Profile.png' %}" alt="Perfil de Usuario">
+        </a>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if request.session.user_id %}
+  <div id="user-id" type="hidden" data-user-id="{{ request.session.user_id }}"></div>
+  <div class="cart" id="cart">
+    <div class="cart-header">
+      <h2>Zure eskaera</h2>
+      <span class="close-btn" onclick="toggleCart()">×</span>
+    </div>
+    <div class="cart-items">
+
+    </div>
+    <div class="cart-total">
+      <span>Importe totala:</span>
+      <span id="total-price">0,00€</span>
+    </div>
+    <button class="checkout-button">Ordaindu Orain</button>
+  </div>
+  {% else %}
+  <div class="cart" id="cart">
+    <div class="cart-header">
+      <h2>Carrito</h2>
+      <span class="close-btn" onclick="toggleCart()">×</span>
+    </div>
+    <p class="login-message">
+      <a href="{% url 'clientside_login' %}">Saioa hasi</a> behar duzu produktuak saskira gehitzeko.
+    </p>
+  </div>
+  {% endif %}
+
+  {% block content %} {% endblock %}
+
+  <footer>
+    <address>
+      <p>Plaza UNZAGA n°4</p>
+      <p>20600 Eibar, Gipuzkoa</p>
+    </address>
+    <div class="Grill">
+      <p>GRILL & CHILL</p>
+    </div>
+    <div class="social">
+      <img src="{% static 'resources/twitter.png' %}" /> <img src="{% static 'resources/insta.png' %}" />
+      <img src="{% static 'resources/facebook.png' %}" />
+    </div>
+  </footer>
+
+  <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+  <script src="{% static 'js/ScriptIndex.js' %}"></script>
+  <script src="{% static 'js/ScriptSaskia.js' %}"></script>
+  <script src="{% static 'js/ScriptProduktuak.js' %}"></script>
+  <script src="{% static 'js/validations.js' %}"></script>
+</body>
+
+</html>

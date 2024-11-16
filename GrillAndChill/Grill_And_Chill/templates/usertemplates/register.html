@@ -1,0 +1,74 @@
+{% extends 'usertemplates/base.html' %} {% block content %} {% load static %}
+<div class="form-container">
+  <h2>ERREGISTRATU</h2>
+  <form action="{% url 'clientside_register' %}" method="post">
+    {% csrf_token %}
+
+    {% if messages %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <div class="form-row">
+      <div class="form-input">
+        <label for="name">Izena:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Adibidea"
+          required
+        />
+      </div>
+      <div class="form-input">
+        <label for="surname">Abizena:</label>
+        <input
+          type="text"
+          id="surname"
+          name="surname"
+          placeholder="Adibidea"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-input">
+        <label for="password">Pasahitza:</label>
+
+        <input type="password" id="password" name="password" placeholder="Adibidea" required />
+      </div>
+      <div class="form-input">
+        <label for="password">Pasahitza errepikatu:</label>
+        <input type="password" id="rep_password" name="password" placeholder="Adibidea" required />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-input">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Adibidea" required />
+      </div>
+      <div class="form-input">
+        <label for="phone">Telefonoa:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Adibidea" required />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-input">
+        <label for="address">Helbidea:</label>
+        <input type="text" id="address" name="address" placeholder="Adibidea" required />
+
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Saioa hasi</button>
+  </form>
+</div>
+
+{% block extra_js %}
+<script src="{% static 'js/validations.js' %}"></script>
+{% endblock %} {% endblock %}
