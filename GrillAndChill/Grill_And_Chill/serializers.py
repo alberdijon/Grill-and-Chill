@@ -32,13 +32,6 @@ class ProductAlergenSerializer(serializers.ModelSerializer):
         model = Product_Alergen
         fields = '__all__'
 
-class OrderSerializer(serializers.ModelSerializer):
-    user_Id = UserSerializer() 
-
-    class Meta:
-        model = Order
-        fields = '__all__'
-
 class ProductOrderSerializer(serializers.ModelSerializer):
     products_Id = ProductSerializer()  
     order_Id = OrderSerializer()        
